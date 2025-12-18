@@ -8,8 +8,6 @@ import {
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getLanguageLabel } from "@/utils/getLanguageLabel";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
 
 interface TextCardProps {
   title: string;
@@ -41,7 +39,6 @@ const TextCard = ({
     translation: "bg-accent/10 text-accent-foreground border-accent/20",
     commentary: "bg-secondary/10 text-secondary-foreground border-secondary/20",
   };
-  const navigate = useNavigate();
 
   return (
     <Card className="hover:shadow-elegant transition-smooth cursor-pointer group h-full justify-between pointer-events-auto">
@@ -81,15 +78,7 @@ const TextCard = ({
         </div>
       </CardContent>
       <CardFooter className="flex-col gap-2 items-end ">
-        <Button variant={!isAnnotationAvailable ? "destructive" : "outline"} className={`w-fit cursor-pointer 
-        ${!isAnnotationAvailable ? "bg-[#025388] hover:bg-[#025388]/90 text-white" : ""}
-        pointer-events-auto`} onClick={(e)=>{
-          e.preventDefault()
-          e.stopPropagation()
-          navigate(`/align/${sourceInstanceId}/${instanceId}`)
-        }}>
-          {!isAnnotationAvailable ? "Align Text" : "update Alignment"}
-        </Button>
+        {/* Alignment functionality removed because /align route and Aligner UI are no longer used */}
       </CardFooter>
     </Card>
   );

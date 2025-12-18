@@ -18,16 +18,6 @@ const Index = () => {
         <h1 className="text-3xl  font-bold ">
           {t("header.title")}
         </h1>
-        <Button
-          onClick={() => {
-            setEditedContent("");
-            navigate("/create");
-          }}
-          variant="default"
-          className="bg-blue-600  hover:bg-blue-700 text-white px-6 py-3 text-lg shadow-lg"
-        >
-          + {t("common.create")}
-        </Button>
       </div>
 
       {/* Content */}
@@ -41,19 +31,6 @@ const Index = () => {
                   <h3 className="text-3xl flex items-center gap-3 font-semibold ">
                     {t("text.texts")}
                   </h3>
-                  <p className="text-gray-500 font-semibold">
-                    {t("home.description")}
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="/persons">
-              <div className=" flex gap-3 items-center  border bg-white border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow min-h-[140px]">
-                <PersonStanding className="w-16 h-16 text-purple-600 flex-shrink-0" />
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-3xl flex items-center gap-3 font-semibold ">
-                    {t("person.persons")}
-                  </h3> 
                   <p className="text-gray-500 font-semibold">
                     {t("home.description")}
                   </p>

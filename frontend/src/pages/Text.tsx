@@ -137,10 +137,6 @@ const TextCRUD = () => {
     setShowTextDropdown(false);
   };
 
-  const handleCreateClick = () => {
-    navigate("/create");
-  };
-
   // Determine what to display
   const displayTexts = filteredFoundText ? [filteredFoundText] : filteredTexts;
   const showPagination = !filteredFoundText && !textNotFound;
@@ -293,12 +289,6 @@ const TextCRUD = () => {
               <p className="text-sm sm:text-base text-gray-600">
                 {t('textsPage.textNotFound') || 'Text not found'}
               </p>
-              <Button
-                onClick={handleCreateClick}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                {t('textsPage.createText') || '+ Create'}
-              </Button>
             </div>
           </div>
         )}

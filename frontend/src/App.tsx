@@ -1,17 +1,14 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import TextCRUD from './pages/Text';
-import PersonCRUD from './pages/Person';
 import TextInstanceCRUD from './pages/TextInstances';
 import Instance from './pages/Instance';
 import Navigation from './components/Navigation';
 import Index from './pages/Index';
-import Create from './pages/Create';
 import CreateTranslation from './pages/CreateTranslation';
 import CreateCommentary from './pages/CreateCommentary';
 import UpdateAnnotation from './pages/UpdateAnnotation';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import AlignmentWorkstation from './components/Aligner/components/AlignmentWorkstation';
 
 function App() {
   const location = useLocation();
@@ -28,24 +25,9 @@ function App() {
               <Index />
             </ProtectedRoute>
           } />
-          <Route path="/create" element={
-            <ProtectedRoute>
-              <Create />
-            </ProtectedRoute>
-          }  />
-          <Route path="/align/:sourceInstanceId/:targetInstanceId" element={
-            <ProtectedRoute>
-            <AlignmentWorkstation/>
-            </ProtectedRoute>
-          } />
           <Route path="/texts" element={
             <ProtectedRoute>
               <TextCRUD />
-            </ProtectedRoute>
-          } />
-          <Route path="/persons" element={
-            <ProtectedRoute>
-              <PersonCRUD />
             </ProtectedRoute>
           } />
           <Route path="/texts/:text_id/instances" element={
