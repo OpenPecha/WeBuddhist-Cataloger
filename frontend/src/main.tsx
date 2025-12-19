@@ -6,8 +6,6 @@ import './index.css'
 import './tailwind.css'
 import './i18n/config' // Initialize i18n
 import App from './App.tsx'
-import { UserbackProvider } from './context/UserbackProvider.tsx'
-import { BibliographyProvider } from './context/BibliographyContext.tsx'
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Toaster } from "@/components/ui/sonner"
 const queryClient = new QueryClient({
@@ -20,7 +18,7 @@ const queryClient = new QueryClient({
 })
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-     <Auth0Provider
+    <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
@@ -29,17 +27,13 @@ createRoot(document.getElementById('root')!).render(
       cacheLocation='localstorage'
       useRefreshTokens={true}
       useRefreshTokensFallback={false}
-    >  
-    <QueryClientProvider client={queryClient}>
-      <BibliographyProvider>
-        <UserbackProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </UserbackProvider>
-      </BibliographyProvider>
-      <Toaster />
-    </QueryClientProvider>
+    >
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+        <Toaster />
+      </QueryClientProvider>
     </Auth0Provider>
   </StrictMode>,
 )
