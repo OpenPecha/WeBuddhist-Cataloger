@@ -1,6 +1,6 @@
 
 import { API_URL } from '@/config/api';
-import type { OpenPechaText, OpenPechaTextInstance, OpenPechaTextInstanceListItem, CreateInstanceResponse } from '@/types/text';
+import type { OpenPechaText, OpenPechaTextInstance, OpenPechaTextInstanceListItem } from '@/types/text';
 
 // Helper function to handle API responses with better error messages
 const handleApiResponse = async (response: Response, customMessages?: { 400?: string; 404?: string; 500?: string }) => {
@@ -135,28 +135,6 @@ export const fetchTextsByTitle = async (title: string, signal?: AbortSignal): Pr
 };
 
 
-// Real API function for creating texts
-export const createText = async (textData: any): Promise<OpenPechaText> => {
-  try {
-    const response = await fetch(`${API_URL}/text`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(textData),
-    });
-
-    return await handleApiResponse(response, {
-      400: 'Invalid text data. Please check all required fields and try again.'
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to create text. Please check your connection and try again.');
-  }
-};
-
 export const fetchTextInstances = async (id: string): Promise<OpenPechaTextInstanceListItem[]> => {
   try {
     const response = await fetch(`${API_URL}/text/${id}/instances`);
@@ -185,29 +163,6 @@ export const fetchInstance = async (id: string): Promise<OpenPechaTextInstance> 
   }
 };
 
-// Real API function for creating text instances
-export const createTextInstance = async (textId: string, instanceData: any, user: string): Promise<CreateInstanceResponse> => {
-  try {
-    const response = await fetch(`${API_URL}/text/${textId}/instances`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...instanceData, user }),
-    });
-
-    return await handleApiResponse(response, {
-      400: 'Invalid instance data. Please check all required fields and try again.',
-      404: 'Text not found. Cannot create instance for non-existent text.'
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to create text instance. Please check your connection and try again.');
-  }
-};
-
 export const fetchAnnotation = async (id: string): Promise<OpenPechaTextInstance> => {
   try {
     const response = await fetch(`${API_URL}/v2/annotations/${id}`);
@@ -229,109 +184,6 @@ export const fetchTextByBdrcId = async (bdrcId: string): Promise<OpenPechaText |
     return null;
   }
 };
-
-export const fetchBdrcWorkInstance = async (workId: string, instanceId: string): Promise<any> => {
-  try {
-    const response = await fetch(`${API_URL}/bdrc/work/${workId}/instances/${instanceId}`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch BDRC work instance: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching BDRC work instance:", error);
-    throw error;
-  }
-};
-
-export const createTranslation = async (instanceId: string, translationData: any, user: string): Promise<any> => {
-  try {
-    const response = await fetch(`${API_URL}/instances/${instanceId}/translation`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...translationData, user }),
-    });
-    
-    // Let handleApiResponse extract and show the actual backend error message
-    return await handleApiResponse(response);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to create translation. Please check your connection and try again.');
-  }
-};
-
-export const createCommentary = async (instanceId: string, commentaryData: any, user: string): Promise<any> => {
-  try {
-    const response = await fetch(`${API_URL}/instances/${instanceId}/commentary`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...commentaryData, user }),
-    });
-    
-    // Let handleApiResponse extract and show the actual backend error message
-    return await handleApiResponse(response);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to create commentary. Please check your connection and try again.');
-  }
-};
-
-export const updateAnnotation = async (annotationId: string, annotationData: any): Promise<any> => {
-  try {
-    const response = await fetch(`${API_URL}/v2/annotations/${annotationId}/annotation`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(annotationData),
-    });
-    
-    return await handleApiResponse(response, {
-      400: 'Invalid annotation data. Please check your segmentation and try again.',
-      404: 'Annotation not found. It may have been deleted or the link is incorrect.'
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to update annotation. Please check your connection and try again.');
-  }
-};
-
-export const updateInstance = async (textId: string, instanceId: string, instanceData: any): Promise<any> => {
-  try {
-    
-    if (instanceData.biblography_annotation.length===0) {
-      delete instanceData.biblography_annotation;
-    }
-    
-    const response = await fetch(`${API_URL}/text/instances/${instanceId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...instanceData }),
-    });
-    
-    return await handleApiResponse(response, {
-      400: 'Invalid instance data. Please check all required fields and try again.',
-      404: 'Instance not found. It may have been deleted or the link is incorrect.'
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Unable to update instance. Please check your connection and try again.');
-  }
-};
-
 
 export const fetchEnums = async (type: string): Promise<any> => {
   try {
