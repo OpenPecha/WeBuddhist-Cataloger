@@ -6,13 +6,12 @@ import TextListCard from "@/components/TextListCard";
 import { useTranslation } from "react-i18next";
 import { useBdrcSearch, type BdrcSearchResult } from "@/hooks/useBdrcSearch";
 import { fetchTextByBdrcId } from "@/api/texts";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 
 const TextCRUD = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [offset, setOffset] = useState(0);
   const LIMIT = 30; // Fixed limit of 30
   const OFFSET_STEP = 30; // Offset increment/decrement step
@@ -50,13 +49,13 @@ const TextCRUD = () => {
 
   // Filter out commentary and translation types
   const filteredTexts = useMemo(() => {
-    return texts.filter((text: OpenPechaText) => 
+    return texts.filter((text: OpenPechaText) =>
       text.type !== 'commentary' && text.type !== 'translation'
     );
   }, [texts]);
 
   const filteredLocalTextResults = useMemo(() => {
-    return localTextResults.filter((text: OpenPechaText) => 
+    return localTextResults.filter((text: OpenPechaText) =>
       text.type !== 'commentary' && text.type !== 'translation'
     );
   }, [localTextResults]);
@@ -88,14 +87,6 @@ const TextCRUD = () => {
     }
   };
 
-  const getTitleDisplay = (text: OpenPechaText): string => {
-    if (text.title?.[text.language]) {
-      return text.title[text.language];
-    }
-    const firstTitle = Object.values(text.title || {})[0];
-    return firstTitle || "Untitled";
-  };
-
   const handleBdrcTextSelect = async (result: BdrcSearchResult) => {
     const workId = result.workId;
     if (!workId) return;
@@ -108,7 +99,7 @@ const TextCRUD = () => {
     try {
       // Check if text exists
       const existingText = await fetchTextByBdrcId(workId);
-      
+
       if (existingText) {
         // Text found
         setFoundText(existingText);
@@ -146,7 +137,7 @@ const TextCRUD = () => {
       {/* Header */}
       <div className={`flex flex-col sm:flex-row justify-between items-center sm:items-center gap-3 sm:gap-0`}>
         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center sm:text-left">{t('textsPage.title')}</h2>
-        
+
         {/* Search Input */}
         <div className="relative w-full sm:w-auto sm:min-w-[300px]">
           <Label
@@ -187,7 +178,7 @@ const TextCRUD = () => {
                       {t("create.bdrcCatalog")}
                     </span>
                   </div>
-                  
+
                   {isLoadingBdrc ? (
                     <div className="px-4 py-4 flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
@@ -240,9 +231,9 @@ const TextCRUD = () => {
                   ) : filteredLocalTextResults.length > 0 ? (
                     filteredLocalTextResults.map((text) => (
                       <Link
-                      to={`/texts/${text.id}/instances`}
-                        key={text.id+Math.random()}
-                       
+                        to={`/texts/${text.id}/instances`}
+                        key={text.id + Math.random()}
+
                         className="w-full px-4 py-2 text-left hover:bg-blue-50 border-b border-gray-100"
                       >
                         <div className="flex items-start gap-2">
@@ -253,7 +244,7 @@ const TextCRUD = () => {
                             <div className="font-medium text-sm">
                               {text.title.bo || text.title.en}
                             </div>
-                            
+
                           </div>
                         </div>
                       </Link>
@@ -306,9 +297,9 @@ const TextCRUD = () => {
                 {t('textsPage.previous')}
               </Button>
               <span className="text-xs sm:text-sm text-gray-600 text-center ">
-                {t('textsPage.showing', { 
-                  start: offset + 1, 
-                  end: offset + filteredTexts.length 
+                {t('textsPage.showing', {
+                  start: offset + 1,
+                  end: offset + filteredTexts.length
                 })}
               </span>
               <Button
