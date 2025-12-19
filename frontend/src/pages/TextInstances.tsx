@@ -3,7 +3,7 @@ import {
     useText,
     useRelatedInstances,
 } from "@/hooks/useTexts";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TextCard from "@/components/TextCard";
 import TextInstanceCard from "@/components/TextInstanceCard";
 import BreadCrumb from "@/components/BreadCrumb";
@@ -23,12 +23,10 @@ function TextInstanceCRUD() {
     } = useTextInstance(text_id || "");
     const { data: text } = useText(text_id || "");
 
-    // Find the critical instance
     const criticalInstance = useMemo(() => {
         return instances.find((instance: OpenPechaTextInstanceListItem) => instance.type === "critical");
     }, [instances]);
 
-    // Fetch related instances using the critical instance ID
     const {
         data: relatedInstances = [],
         isLoading: isLoadingRelated,
@@ -46,7 +44,6 @@ function TextInstanceCRUD() {
         );
     }
 
-    // Error state for instances
     if (instancesError) {
         return (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -81,7 +78,6 @@ function TextInstanceCRUD() {
         );
     }
 
-    // No instances found
     if (!instances || instances.length === 0) {
         return (
             <div className="text-center py-12">
@@ -234,26 +230,19 @@ function TextInstanceCRUD() {
                                 <div className="grid gap-6 px-2 sm:px-0 md:grid-cols-2 lg:grid-cols-3">
                                     {relatedInstances.map((relatedInstance: RelatedInstance) => {
                                         const metadata = relatedInstance.metadata;
-                                        const textId = metadata.text_id;
                                         const instanceId = relatedInstance.instance_id;
                                         const isAnnotationAvailable = !!relatedInstance.annotation;
                                         const sourceInstanceId = criticalInstance?.id;
                                         return (
-                                            <Link
-                                                key={relatedInstance.instance_id}
-                                                to={`/texts/${textId}/instances/${instanceId}`}
-                                                className="block pointer-events-auto"
-                                            >
-                                                <TextCard
-                                                    title={getTitle(metadata.title)}
-                                                    language={metadata.language}
-                                                    type={relatedInstance.relationship}
-                                                    bdrcId={undefined}
-                                                    isAnnotationAvailable={isAnnotationAvailable}
-                                                    instanceId={instanceId}
-                                                    sourceInstanceId={sourceInstanceId}
-                                                />
-                                            </Link>
+                                            <TextCard
+                                                title={getTitle(metadata.title)}
+                                                language={metadata.language}
+                                                type={relatedInstance.relationship}
+                                                bdrcId={undefined}
+                                                isAnnotationAvailable={isAnnotationAvailable}
+                                                instanceId={instanceId}
+                                                sourceInstanceId={sourceInstanceId}
+                                            />
                                         );
                                     })}
                                 </div>
