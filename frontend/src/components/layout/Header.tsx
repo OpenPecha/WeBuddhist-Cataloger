@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Book, Users, Home, Search } from "lucide-react";
+import { Book, Users, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../formComponent/LanguageSelector";

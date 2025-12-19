@@ -1,9 +1,8 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import TextCRUD from './pages/Text';
 import TextInstanceCRUD from './pages/TextInstances';
 import Instance from './pages/Instance';
 import Navigation from './components/Navigation';
-import Index from './pages/Index';
 import CreateTranslation from './pages/CreateTranslation';
 import CreateCommentary from './pages/CreateCommentary';
 import UpdateAnnotation from './pages/UpdateAnnotation';
@@ -22,7 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={
             <ProtectedRoute>
-              <Index />
+              <Navigate to="/texts" replace />
             </ProtectedRoute>
           } />
           <Route path="/texts" element={
