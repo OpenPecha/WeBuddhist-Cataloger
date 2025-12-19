@@ -1,6 +1,6 @@
 import React from 'react';
 import type { OpenPechaTextInstanceListItem } from '@/types/text';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 interface TextInstanceCardProps {
   instance: OpenPechaTextInstanceListItem;
@@ -9,7 +9,7 @@ interface TextInstanceCardProps {
 const TextInstanceCard: React.FC<TextInstanceCardProps> = ({ instance }) => {
 
 
-  const {text_id}=useParams();
+  const { text_id } = useParams();
 
   const getTypeColor = (type: string) => {
     if (!type) return 'bg-gray-100 text-gray-800 border-gray-200';
@@ -25,12 +25,8 @@ const TextInstanceCard: React.FC<TextInstanceCardProps> = ({ instance }) => {
     }
   };
 
-  // Title logic: 
-  // 1. Try Tibetan incipit title
-  // 2. If not, try first available language in incipit_title
-  // 3. If no incipit_title, show "Text Instance (colophon)"
   let title = "Version";
-  
+
   if (instance.incipit_title && typeof instance.incipit_title === 'object') {
     const incipitObj = instance.incipit_title as Record<string, string>;
     if (incipitObj.bo) {
@@ -43,16 +39,16 @@ const TextInstanceCard: React.FC<TextInstanceCardProps> = ({ instance }) => {
       }
     }
   }
-  
+
   // If no incipit_title, format with colophon
   if (!title) {
-    title = instance.colophon 
-      ? `Text Instance (${instance.colophon})` 
+    title = instance.colophon
+      ? `Text Instance (${instance.colophon})`
       : "Text Instance";
   }
 
   return (
-    <Link to={`/texts/${text_id}/instances/${instance.id}`} className="bg-white rounded-lg shadow-md border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0 mb-0 sm:mb-4">
         <div className="flex-1 min-w-0">
@@ -66,8 +62,8 @@ const TextInstanceCard: React.FC<TextInstanceCardProps> = ({ instance }) => {
           </span>
         </div>
       </div>
-     
-    </Link>
+
+    </div>
   );
 };
 

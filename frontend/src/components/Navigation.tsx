@@ -42,8 +42,6 @@ function Navigation() {
     return null;
   }
 
-  const isActive = (path: string) => location.pathname === path;
-
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">

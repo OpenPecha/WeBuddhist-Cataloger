@@ -1,11 +1,9 @@
 import {
   Book,
-  Calendar,
   CheckCircleIcon,
-  CircleXIcon,
-  User,
+  CircleXIcon
 } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getLanguageLabel } from "@/utils/getLanguageLabel";
 
@@ -27,19 +25,8 @@ const TextCard = ({
   titleTibetan,
   language,
   type,
-  author,
-  date,
-  bdrcId,
   isAnnotationAvailable,
-  instanceId,
-  sourceInstanceId,
 }: TextCardProps) => {
-  const typeColors: Record<string, string> = {
-    root: "bg-primary/10 text-primary border-primary/20",
-    translation: "bg-accent/10 text-accent-foreground border-accent/20",
-    commentary: "bg-secondary/10 text-secondary-foreground border-secondary/20",
-  };
-
   return (
     <Card className="hover:shadow-elegant transition-smooth cursor-pointer group h-full justify-between pointer-events-auto">
       <CardHeader>
@@ -59,7 +46,6 @@ const TextCard = ({
 
         <div className="flex flex-wrap gap-2"></div>
       </CardHeader>
-
       <CardContent className="space-y-2">
         <div className="flex justify-between gap-2 text-xs text-muted-foreground ">
           <div className="flex items-center gap-1">
@@ -77,9 +63,6 @@ const TextCard = ({
           )}
         </div>
       </CardContent>
-      <CardFooter className="flex-col gap-2 items-end ">
-        {/* Alignment functionality removed because /align route and Aligner UI are no longer used */}
-      </CardFooter>
     </Card>
   );
 };

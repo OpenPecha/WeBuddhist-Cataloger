@@ -1,16 +1,12 @@
 import {
-  createText,
-  createTextInstance,
   fetchAnnotation,
-  fetchInstance,
   fetchRelatedInstances,
   fetchText,
   fetchTextInstances,
   fetchTexts,
   fetchTextsByTitle,
-  updateInstance,
 } from "@/api/texts";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 
 export const useTextsByTitle = (title: string) => {
@@ -60,14 +56,6 @@ export const useTextInstance = (id: string) => {
   });
 };
 
-export const useInstance = (id: string) => {
-  return useQuery({
-    queryKey: ["instance", id],
-    queryFn: () => fetchInstance(id),
-    // fetchInstance already returns OpenPechaTextInstance, no need for select
-    enabled: !!id, // Only fetch when id exists
-  });
-};
 
 export const useAnnnotation = (id: string) => {
   return useQuery({
@@ -77,35 +65,6 @@ export const useAnnnotation = (id: string) => {
   });
 };
 
-export const useCreateText = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: createText,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["texts"] });
-    }
-  });
-};
-
-export const useCreateTextInstance = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({
-      textId,
-      instanceData,
-      user
-    }: {
-      textId: string;
-      instanceData: any;
-      user: string;
-    }) => createTextInstance(textId, instanceData, user),
-    onSuccess: (_, { textId }) => {
-      queryClient.invalidateQueries({ queryKey: ["textInstance", textId] });
-    }
-  });
-};
 
 export const useRelatedInstances = (instanceId: string | null) => {
   return useQuery({
@@ -116,27 +75,3 @@ export const useRelatedInstances = (instanceId: string | null) => {
     retry: 1,
   });
 };
-
-export const useUpdateInstance = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({
-      textId,
-      instanceId,
-      instanceData,
-      user
-    }: {
-      textId: string;
-      instanceId: string;
-      instanceData: any;
-      user: string;
-    }) => updateInstance(textId, instanceId, instanceData, user),
-    onSuccess: (_, { textId, instanceId }) => {
-      queryClient.invalidateQueries({ queryKey: ["instance", instanceId] });
-      queryClient.invalidateQueries({ queryKey: ["textInstance", textId] });
-      queryClient.invalidateQueries({ queryKey: ["annotation"] });
-    }
-  });
-};
- 

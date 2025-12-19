@@ -24,43 +24,37 @@ interface BreadCrumbProps {
   instancename?: string;
 }
 
-const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,instancename }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '', textname, instancename }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const params = useParams();
-  // Generate breadcrumb items based on current route
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
     const pathSegments = location.pathname.split('/').filter(Boolean);
     const breadcrumbs: BreadcrumbItem[] = [
     ];
 
-    // Handle different routes
     if (pathSegments.includes('texts')) {
-      breadcrumbs.push({ 
-        label: t('header.texts'), 
-        href: '/texts', 
-        icon: <Book className="w-4 h-4" /> 
+      breadcrumbs.push({
+        label: t('header.texts'),
+        href: '/',
+        icon: <Book className="w-4 h-4" />
       });
 
-      // If we have a text_id parameter
       if (params.text_id && textname) {
-        // For now, we'll use the text_id as the label
-        // In a real app, you might want to fetch the actual text title
-        breadcrumbs.push({ 
-          label: textname, 
-          href: `/texts/${params.text_id}/instances` 
+        breadcrumbs.push({
+          label: textname,
+          href: `/texts/${params.text_id}/instances`
         });
-        // If we're in instances
         if (pathSegments.includes('instances')) {
-            if (params.instance_id && instancename) {
-                breadcrumbs.push({ 
-                    label: instancename, 
-                    icon: <FileText className="w-4 h-4" /> 
-                });
-            }
+          if (params.instance_id && instancename) {
+            breadcrumbs.push({
+              label: instancename,
+              icon: <FileText className="w-4 h-4" />
+            });
+          }
         }
+      }
     }
-  }
 
     return breadcrumbs;
   };
@@ -68,7 +62,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,
   const breadcrumbItems = items || generateBreadcrumbs();
 
   return (
-    <Breadcrumb className={className+" "}>
+    <Breadcrumb className={className + " "}>
       <BreadcrumbList>
         {breadcrumbItems.map((item, index) => (
           <React.Fragment key={`breadcrumb-${item.label}-${index}`}>
@@ -79,13 +73,13 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,
                     to={item.href}
                     className="flex items-center space-x-1"
                   >
-                    {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+                    {item.icon && <span className="shrink-0">{item.icon}</span>}
                     <span>{item.label}</span>
                   </Link>
                 </BreadcrumbLink>
               ) : (
                 <BreadcrumbPage className="flex items-center space-x-1">
-                  {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+                  {item.icon && <span className="shrink-0">{item.icon}</span>}
                   <span>{item.label}</span>
                 </BreadcrumbPage>
               )}
