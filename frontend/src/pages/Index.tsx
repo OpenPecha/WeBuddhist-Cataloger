@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { BookOpen, PersonStanding } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();

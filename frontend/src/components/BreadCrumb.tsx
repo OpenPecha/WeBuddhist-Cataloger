@@ -22,10 +22,9 @@ interface BreadCrumbProps {
   className?: string;
   textname?: string;
   instancename?: string;
-  personname?: string;
 }
 
-const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,instancename,personname }) => {
+const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,instancename }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const params = useParams();
@@ -61,13 +60,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({ items, className = '',textname,
             }
         }
     }
-    } else if (pathSegments.includes('persons') && personname) {
-      breadcrumbs.push({ 
-        label: personname, 
-        href: '/persons', 
-        icon: <Book className="w-4 h-4" /> 
-      });
-    }
+  }
 
     return breadcrumbs;
   };

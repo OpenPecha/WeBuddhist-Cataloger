@@ -10,7 +10,6 @@ const Navigation = () => {
   
   const navItems = [
     { path: "/texts", icon: Book, label: t("header.texts") },
-    { path: "/persons", icon: Users, label: t("header.persons") },
   ];
 
   return (
