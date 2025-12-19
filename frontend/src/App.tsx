@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import TextCRUD from './pages/Text';
 import Navigation from './components/Navigation';
 import LoginPage from './pages/LoginPage';
+import TextInstanceCRUD from './pages/TextInstances';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -18,6 +19,13 @@ function App() {
             <ProtectedRoute>
               <TextCRUD />
             </ProtectedRoute>
+          } />
+          <Route path="/texts/:text_id/instances" element={
+            <ProtectedRoute>
+              <TextInstanceCRUD />
+            </ProtectedRoute>
+
+
           } />
         </Routes>
       </div>
