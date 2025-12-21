@@ -7,3 +7,5 @@ backend/routers/__pycache__
 __pycache__
 dependencies
 backend/dependencies
+
+dist
