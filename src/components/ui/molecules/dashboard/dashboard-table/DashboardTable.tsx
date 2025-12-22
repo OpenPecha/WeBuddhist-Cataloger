@@ -44,9 +44,13 @@ export function DashBoardTable({
                     <div className="text-lg font-monlam">{item.title.bo}</div>
                 </TableCell>
                 <TableCell>
+                    {item.date}
+                </TableCell>
+                <TableCell>
                     {item.contributions.length}
                 </TableCell>
-                <TableCell>{TypeMap[item.type as keyof typeof TypeMap]}</TableCell>
+                <TableCell>
+                    {TypeMap[item.type as keyof typeof TypeMap]}</TableCell>
                 <TableCell className="flex items-center gap-2">
                     <IconWrapper>
                         <LanguagesIcon className="w-4 h-4 text-muted-foreground" />
@@ -58,12 +62,13 @@ export function DashBoardTable({
     };
     return (
         <Table className="bg-white">
-            <TableHeader className=" bg-sidebar border-t border-edge">
+            <TableHeader className=" bg-sidebar">
                 <TableRow>
                     <TableHead>
-                        <div className="flex items-center">
-                            Title
-                        </div>
+                        Title
+                    </TableHead>
+                    <TableHead>
+                        Date Added
                     </TableHead>
                     <TableHead>
                         Contributors

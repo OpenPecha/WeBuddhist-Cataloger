@@ -432,7 +432,7 @@ const Dashboard = () => {
                 <div className="w-4 h-full">
                     <Separator />
                 </div>
-                <div className="flex-1 max-h-[calc(100vh-15rem)] overflow-y-auto">
+                <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
                     <DashBoardTable
                         data={dummydata}
                     />
