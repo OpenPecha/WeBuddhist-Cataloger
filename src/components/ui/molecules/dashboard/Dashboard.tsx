@@ -1,8 +1,10 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "../../atoms/breadcrumb"
 import { Separator } from "../../atoms/Seperator"
 import Navbar from "../navbar/Navbar"
-import { HomeIcon } from "lucide-react"
 import { DashBoardTable } from "./dashboard-table/DashboardTable"
+import SearchField from "../search/SearchField"
+import { PaginationComponent } from "../all-pagination/PaginationComponent"
+import { useState } from "react"
+import BreadcrumbComponent from "../all-breadcrumb/BreadcrumbComponent"
 
 const dummydata = [
     {
@@ -239,13 +241,13 @@ const dummydata = [
         "id": "yj0gP2IriW4PYHSMWzTfH"
     },
     {
-        "bdrc": "WA0XLFAA67A7DBECC",
+        "bdrc": "WA0XLF855CC152C65",
         "wiki": null,
         "type": "translation_source",
         "contributions": [],
         "date": "2025-11-23",
         "title": {
-            "bo": "རྟེན་འབྲེལ་བསྟོད་པ།"
+            "bo": "དཔལ་ལྡན་ས་གསུམ་མ།"
         },
         "alt_titles": null,
         "language": "bo",
@@ -253,16 +255,16 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "qPFnjGlxQtwf5vumOL2Fe"
+        "id": "TfoanoHlFnzgYXN8upur4"
     },
     {
-        "bdrc": "WA0XLC8C375A294ED",
+        "bdrc": "WA0XLF0FAD365454A",
         "wiki": null,
         "type": "translation_source",
         "contributions": [],
         "date": "2025-11-23",
         "title": {
-            "bo": "བྱང་ཆུབ་སེམས་དཔའི་ལྟུང་བ་བཤགས་པ།"
+            "bo": "སྒྲོལ་མ་ཉེར་གཅིག་ལ་བསྟོད་པ།"
         },
         "alt_titles": null,
         "language": "bo",
@@ -270,160 +272,22 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "YDTTcib4EKqQ64rb4jgrP"
-    },
-    {
-        "bdrc": null,
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-24",
-        "title": {
-            "bo": "ཡན་ལག་བདུན་པ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "vrUGbRKQrVgCZIQf0ydG0"
-    },
-    {
-        "bdrc": "WA0XLEECE2B469A32",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "བསམ་པ་ལྷུན་གྲུབ་མ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "stlFqsMY05O0M0GQkJXsr"
-    },
-    {
-        "bdrc": "WA0XLD5D380DB4ECE",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "གསོལ་འདེབས་བསམ་པ་མྱུར་འགྲུབ་མ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "IwAy9MTofF9tRNXU3UrrA"
-    },
-    {
-        "bdrc": "WA0XL940D108F46EF",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "ཡོན་ཏན་གཞིར་གྱུར་མ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "zojtfcMFaFewDNY0C05Bg"
-    },
-    {
-        "bdrc": "WA4CZ32863",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "བྱམས་པའི་སྨོན་ལམ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "44VwpguvAbm2qqAIRle7f"
-    },
-    {
-        "bdrc": "WA0XLDEB6DFF1A465",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "འཕགས་པ་ཐུགས་རྗེ་ཆེན་པོ་ལ་བསྟོད་ཅིང་གསོལ་བ་འདེབས་པ་ཕན་བདེའི་ཆར་འབེབས།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "pdWERcs9pm60WMIakvlrJ"
-    },
-    {
-        "bdrc": "WA0XLBF2CC98D620E",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "སྤྱོད་འཇུག་སྨོན་ལམ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "Vjl52ywBP1qmkUrsmVPZj"
-    },
-    {
-        "bdrc": "WA0XLBD736BA915C7",
-        "wiki": null,
-        "type": "translation_source",
-        "contributions": [],
-        "date": "2025-11-23",
-        "title": {
-            "bo": "ཞབས་བརྟན་རབ་འབྱམས་རྒྱལ་བ།"
-        },
-        "alt_titles": null,
-        "language": "bo",
-        "target": null,
-        "category_id": "dJpr4gMF72E4UpCnJ84sh",
-        "copyright": "Public domain",
-        "license": "Public Domain Mark",
-        "id": "6QzeABCl74ZDvfss2d7l9"
+        "id": "saXjClLpCGt5zM5yIkzLe"
     }
 ]
 const Dashboard = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = dummydata ? Math.ceil(dummydata.length / 10) : 1; //to be change when integration is done
+    const breadcrumbItems = [
+        { label: "Home", path: "/" },
+        { label: "Dashboard", path: "/" },
+    ]
     return (
         <div className="flex flex-col w-full h-full">
             <Navbar />
-            <div className="border-b py-4 px-6 border-edge">
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink className="flex items-center gap-2" href="/">
-                                <HomeIcon className="w-4 h-4" />
-                                <span>Home</span>
-                            </BreadcrumbLink>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+            <div className="border-b py-4 px-6 border-edge flex items-center justify-between">
+                <BreadcrumbComponent items={breadcrumbItems} />
+                <SearchField />
             </div>
             <div className="h-10">
                 <Separator />
@@ -441,6 +305,12 @@ const Dashboard = () => {
                     <Separator />
                 </div>
             </div>
+
+            <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
 
         </div>
     )

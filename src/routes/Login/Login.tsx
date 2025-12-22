@@ -4,6 +4,7 @@ import { AppleLogo, GoogleLogo } from "@/components/ui/molecules/all-icons/Icons
 import AuthCard from "@/components/ui/molecules/auth-card/AuthCard";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "sonner";
+import AuthLayout from "@/components/Layouts/AuthLayout";
 
 const Login = () => {
     const { loginWithRedirect } = useAuth0();
@@ -31,13 +32,13 @@ const Login = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <AuthLayout>
             <AuthCard
                 title="Welcome to WeBuddhist Cataloger"
                 description="Login to your account"
                 footer={
                     <div className="w-full text-center text-sm text-muted-foreground">
-                        A product Under WeBuddhist Study Platform
+                        A product Under The WeBuddhist Study Platform
                     </div>
                 }
             >
@@ -46,7 +47,7 @@ const Login = () => {
                         <Button
                             type="button"
                             variant="outline"
-                            className="w-full gap-2"
+                            className="w-full gap-2 cursor-pointer"
                             disabled={isSubmitting}
                             onClick={() =>
                                 handleSocialLogin("google-oauth2", { prompt: "select_account" })
@@ -59,7 +60,7 @@ const Login = () => {
                         <Button
                             type="button"
                             variant="outline"
-                            className="w-full gap-2"
+                            className="w-full gap-2 cursor-pointer"
                             disabled={isSubmitting}
                             onClick={() => handleSocialLogin("apple")}
                         >
@@ -69,7 +70,7 @@ const Login = () => {
                     </div>
                 </div>
             </AuthCard>
-        </div>
+        </AuthLayout>
     );
 };
 
