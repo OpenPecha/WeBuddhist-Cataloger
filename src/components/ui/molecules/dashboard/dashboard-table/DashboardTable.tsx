@@ -1,6 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LanguageMap = {
     "bo": "Tibetan",
@@ -41,7 +42,9 @@ export function DashBoardTable({
                 <TableCell
                     className="cursor-pointer"
                 >
-                    <div className="text-lg font-monlam">{item.title.bo}</div>
+                    <Link to={`/instance/${item.id}`}>
+                        <div className="text-lg font-monlam">{item.title.bo}</div>
+                    </Link>
                 </TableCell>
                 <TableCell>
                     {item.date}

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./routes/Login/Login.tsx";
 import Text from "./routes/Text/Text.tsx";
 import { AuthenticationGuard } from "./providers/AuthGuard.tsx";
+import Instance from "./routes/Instance/Instance.tsx";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<AuthenticationGuard component={Text} />} />
+          <Route path="/instance/:id" element={<AuthenticationGuard component={Instance} />} />
         </Routes>
       </div>
     </div>
