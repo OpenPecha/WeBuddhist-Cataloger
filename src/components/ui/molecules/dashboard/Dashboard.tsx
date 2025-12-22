@@ -1,10 +1,9 @@
 import { Separator } from "../../atoms/Seperator"
-import Navbar from "../navbar/Navbar"
 import { DashBoardTable } from "./dashboard-table/DashboardTable"
 import SearchField from "../search/SearchField"
 import { PaginationComponent } from "../all-pagination/PaginationComponent"
 import { useState } from "react"
-import BreadcrumbComponent from "../all-breadcrumb/BreadcrumbComponent"
+import MainLayout from "../../../Layouts/MainLayout"
 
 const dummydata = [
     {
@@ -283,15 +282,10 @@ const Dashboard = () => {
         { label: "Dashboard", path: "/" },
     ]
     return (
-        <div className="flex flex-col w-full h-full">
-            <Navbar />
-            <div className="border-b py-4 px-6 border-edge flex items-center justify-between">
-                <BreadcrumbComponent items={breadcrumbItems} />
-                <SearchField />
-            </div>
-            <div className="h-10">
-                <Separator />
-            </div>
+        <MainLayout
+            breadcrumbItems={breadcrumbItems}
+            searchFieldComponent={<SearchField />}
+        >
             <div className="flex">
                 <div className="w-4 h-full">
                     <Separator />
@@ -311,8 +305,7 @@ const Dashboard = () => {
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
             />
-
-        </div>
+        </MainLayout>
     )
 }
 

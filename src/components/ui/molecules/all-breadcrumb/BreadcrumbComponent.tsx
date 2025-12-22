@@ -49,7 +49,7 @@ export default function BreadcrumbComponent({
     if (!crumbs.length) return null;
 
     return (
-        <Breadcrumb>
+        <Breadcrumb className="h-12 flex items-center">
             <BreadcrumbList>
                 {crumbs.map((crumb, idx) => {
                     const isLast = idx === crumbs.length - 1;

@@ -1,10 +1,24 @@
 import { useParams } from "react-router-dom";
+import MainLayout from "../../components/Layouts/MainLayout";
 
 const Instance = () => {
     const { id } = useParams();
     console.log(id);
+
+    const breadcrumbItems = [
+        { label: "Home", path: "/" },
+        { label: "Dashboard", path: "/" },
+        { label: "Instance", path: `/instance/${id}` },
+    ];
+
     return (
-        <div className="flex items-center justify-center h-screen">Instance {id}</div>
+        <MainLayout
+            breadcrumbItems={breadcrumbItems}
+        >
+            <div className="flex w-full h-full">
+                hi
+            </div>
+        </MainLayout>
     )
 }
 
