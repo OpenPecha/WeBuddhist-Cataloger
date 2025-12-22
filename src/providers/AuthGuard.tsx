@@ -10,7 +10,7 @@ export const AuthenticationGuard = ({
     const { isAuthenticated, isLoading } = useAuth0();
 
     if (isLoading) {
-        return <div className="page-layout overalltext">Loading...</div>;
+        return <div className="flex flex-col items-center justify-center h-screen">Loading...</div>;
     }
 
     if (!isAuthenticated) {

@@ -40,19 +40,18 @@ export const Auth0ProviderWithNavigate = ({
     });
 
     const onRedirectCallback = () => {
-        // You said redirect will always be "/"
         navigate("/", { replace: true });
     };
 
     if (isLoading) {
-        return <div className="page-layout overalltext">Loading...</div>;
+        return <div className="flex flex-col items-center justify-center h-screen">Loading...</div>;
     }
 
     if (isError) {
         return (
-            <div className="page-layout overalltext">
-                <p>Failed to load authentication configuration.</p>
-                <p style={{ opacity: 0.8, marginTop: 8 }}>
+            <div className="flex flex-col items-center justify-center h-screen">
+                <p className="text-red-700">Failed to load authentication configuration.</p>
+                <p>
                     {error instanceof Error ? error.message : "Unknown error"}
                 </p>
             </div>
