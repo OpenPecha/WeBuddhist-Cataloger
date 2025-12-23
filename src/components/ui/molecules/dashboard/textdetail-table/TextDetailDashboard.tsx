@@ -44,10 +44,10 @@ export function TextDetailDashboard({
                         <div className="text-lg font-monlam">{item.title.tibphono || item.title.bo}</div>
                     </Link>
                 </TableCell>
-                <TableCell>
+                <TableCell className=" capitalize">
                     {item.instance_type}
                 </TableCell>
-                <TableCell>
+                <TableCell className=" capitalize">
                     {item.relationship}
                 </TableCell>
                 <TableCell>
