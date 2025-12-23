@@ -1,9 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
-import { CheckCircleIcon, LanguagesIcon, XCircleIcon } from "lucide-react";
+import { LanguagesIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Badge } from "@/components/ui/atoms/badge";
-import { cn } from "@/lib/utils";
 
 const LanguageMap = {
     "bo": "Tibetan",
@@ -62,10 +60,8 @@ export function DashBoardTable({
                     </div>
                 </TableCell>
                 <TableCell>
-                    <Badge className={cn(" border-2 text-sm rounded-sm", item.status ? "bg-green-500 border-green-600  text-green-100 " : "bg-red-500 border-red-600 text-red-100")}>
-
-                        {item.status ? <div className="flex items-center gap-2"><CheckCircleIcon className="w-4 h-4" /> Completed</div> : <div className="flex items-center gap-2"><XCircleIcon className="w-4 h-4" /> Pending</div>}
-                    </Badge>
+                    {item.status ? <div className="flex items-center gap-2"> <div className="w-3 h-3 bg-green-500" /> Completed</div>
+                        : <div className="flex items-center gap-2"> <div className="w-3 h-3  bg-red-500" /> Pending</div>}
                 </TableCell>
             </TableRow>
         ));

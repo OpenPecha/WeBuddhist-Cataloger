@@ -1,10 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
-import { CheckCircleIcon, LanguagesIcon, XCircleIcon } from "lucide-react";
+import { LanguagesIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/atoms/button";
-import { Badge } from "@/components/ui/atoms/badge";
-import { cn } from "@/lib/utils";
 
 const LanguageMap = {
     "bo": "Tibetan",
@@ -61,17 +59,14 @@ export function TextDetailDashboard({
                     </div>
 
                 </TableCell>
-
+                <TableCell>
+                    {item.status ? <div className="flex items-center gap-2"> <div className="w-3 h-3 bg-green-500" /> Completed</div>
+                        : <div className="flex items-center gap-2"> <div className="w-3 h-3  bg-red-500" /> Pending</div>}
+                </TableCell>
                 <TableCell>
                     <Button variant="outline" className="cursor-pointer" disabled={item.status}>
                         Trigger Upload
                     </Button>
-                </TableCell>
-                <TableCell>
-                    <Badge className={cn(" border-2 rounded-sm text-sm", item.status ? "bg-green-500 border-green-600  text-green-100 " : "bg-red-500 border-red-600 text-red-100")}>
-
-                        {item.status ? <div className="flex items-center gap-2"><CheckCircleIcon className="w-4 h-4" /> Completed</div> : <div className="flex items-center gap-2"><XCircleIcon className="w-4 h-4" /> Pending</div>}
-                    </Badge>
                 </TableCell>
             </TableRow>
         ));
@@ -93,10 +88,10 @@ export function TextDetailDashboard({
                         Language
                     </TableHead>
                     <TableHead >
-                        Action
+                        Status
                     </TableHead>
                     <TableHead >
-                        Status
+                        Action
                     </TableHead>
                 </TableRow>
             </TableHeader>
