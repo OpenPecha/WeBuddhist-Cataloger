@@ -21,7 +21,8 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "TfoanoHlFnzgYXN8upur4"
+        "id": "TfoanoHlFnzgYXN8upur4",
+        "status": true
     },
     {
         "bdrc": "WA0XLF0FAD365454A",
@@ -133,7 +134,8 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "imTxVe3VcWGcpt8elNAKp"
+        "id": "imTxVe3VcWGcpt8elNAKp",
+        "status": true
     },
     {
         "bdrc": "WA0RK0529",
@@ -254,7 +256,8 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "TfoanoHlFnzgYXN8upur4"
+        "id": "TfoanoHlFnzgYXN8upur4",
+        "status": true
     },
     {
         "bdrc": "WA0XLF0FAD365454A",
@@ -271,7 +274,8 @@ const dummydata = [
         "category_id": "dJpr4gMF72E4UpCnJ84sh",
         "copyright": "Public domain",
         "license": "Public Domain Mark",
-        "id": "saXjClLpCGt5zM5yIkzLe"
+        "id": "saXjClLpCGt5zM5yIkzLe",
+        "status": true
     }
 ]
 const Dashboard = () => {

@@ -2,20 +2,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { CheckCircleIcon, LanguagesIcon, XCircleIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/atoms/button";
 import { Badge } from "@/components/ui/atoms/badge";
 import { cn } from "@/lib/utils";
 
 const LanguageMap = {
     "bo": "Tibetan",
     "en": "English",
+    "tibphono": "Tibetan Phonetic",
 }
 
-const TypeMap = {
-    "translation_source": "Translation Source",
-    "none": "No Align Text"
-}
 
-export function DashBoardTable({
+export function TextDetailDashboard({
     data
 }: any) {
 
@@ -45,14 +43,15 @@ export function DashBoardTable({
                     className="cursor-pointer"
                 >
                     <Link to={`/instance/${item.id}`}>
-                        <div className="text-lg font-monlam">{item.title.bo}</div>
+                        <div className="text-lg font-monlam">{item.title.tibphono || item.title.bo}</div>
                     </Link>
                 </TableCell>
                 <TableCell>
-                    {item.date}
+                    {item.instance_type}
                 </TableCell>
                 <TableCell>
-                    {TypeMap[item.type as keyof typeof TypeMap]}</TableCell>
+                    {item.relationship}
+                </TableCell>
                 <TableCell>
                     <div className="flex items-center gap-2">
                         <IconWrapper>
@@ -60,9 +59,16 @@ export function DashBoardTable({
                         </IconWrapper>
                         <p className="text-sm text-muted-foreground">{LanguageMap[item.language as keyof typeof LanguageMap]}</p>
                     </div>
+
+                </TableCell>
+
+                <TableCell>
+                    <Button variant="outline" className="cursor-pointer" disabled={item.status}>
+                        Trigger Upload
+                    </Button>
                 </TableCell>
                 <TableCell>
-                    <Badge className={cn(" border-2 text-sm rounded-sm", item.status ? "bg-green-500 border-green-600  text-green-100 " : "bg-red-500 border-red-600 text-red-100")}>
+                    <Badge className={cn(" border-2 rounded-sm text-sm", item.status ? "bg-green-500 border-green-600  text-green-100 " : "bg-red-500 border-red-600 text-red-100")}>
 
                         {item.status ? <div className="flex items-center gap-2"><CheckCircleIcon className="w-4 h-4" /> Completed</div> : <div className="flex items-center gap-2"><XCircleIcon className="w-4 h-4" /> Pending</div>}
                     </Badge>
@@ -78,15 +84,18 @@ export function DashBoardTable({
                         Title
                     </TableHead>
                     <TableHead>
-                        Date Added
+                        Instance Type
                     </TableHead>
                     <TableHead>
-                        Type
+                        Relationship
                     </TableHead>
-                    <TableHead >
+                    <TableHead>
                         Language
                     </TableHead>
-                    <TableHead>
+                    <TableHead >
+                        Action
+                    </TableHead>
+                    <TableHead >
                         Status
                     </TableHead>
                 </TableRow>
