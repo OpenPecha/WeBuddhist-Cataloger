@@ -5,8 +5,9 @@ import { Separator } from "@/components/ui/atoms/Seperator";
 import { Button } from "@/components/ui/atoms/button";
 import axiosInstance from "@/config/axios-config";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { getReadableAxiosError } from "@/lib/error";
+import { toast } from "sonner";
+import { useEffect } from "react";
 
 export const FetchTextDetailInfo = async (textId: string) => {
     const { data } = await axiosInstance.get(`/api/v1/texts/${textId}`);
@@ -36,44 +37,21 @@ const Instance = () => {
         { label: "Text Details", path: `/instance/${id}` },
     ];
 
-    if (isLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center h-screen">
-                Loading...
-            </div>
-        );
-    }
-
-    if (isError) {
-        const info = getReadableAxiosError(error);
-
-        return (
-            <div className="flex flex-col items-center justify-center h-screen gap-3 px-6 text-center">
-                <div className="text-lg font-semibold">{info.title}</div>
-                <div className="text-sm opacity-80">{info.detail}</div>
-
-                {axios.isAxiosError(error) && (
-                    <pre className="mt-2 max-w-2xl overflow-auto rounded border p-3 text-left text-xs opacity-80">
-                        {JSON.stringify(
-                            {
-                                url: error.config?.url,
-                                method: error.config?.method,
-                                status: error.response?.status,
-                                data: error.response?.data,
-                                code: error.code,
-                            },
-                            null,
-                            2
-                        )}
-                    </pre>
-                )}
-
-                <Button variant="outline" onClick={() => refetch()}>
-                    Retry
-                </Button>
-            </div>
-        );
-    }
+    useEffect(() => {
+        if (isError && error) {
+            const info = getReadableAxiosError(error);
+            toast.error(info.title, {
+                description: info.detail,
+                duration: 10000,
+                action: {
+                    label: "Retry",
+                    onClick: () => {
+                        void refetch();
+                    },
+                },
+            });
+        }
+    }, [isError, error, refetch]);
 
     return (
         <MainLayout breadcrumbItems={breadcrumbItems}>
@@ -90,7 +68,13 @@ const Instance = () => {
                         <Separator />
                     </div>
                     <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
-                        <TextDetailDashboard data={textdata} />
+                        {isLoading ? (
+                            <div className="flex items-center justify-center h-40">
+                                <div className="text-sm opacity-60">Loading text details...</div>
+                            </div>
+                        ) : (
+                            <TextDetailDashboard data={textdata || []} />
+                        )}
                     </div>
                     <div className="w-4 h-full">
                         <Separator />

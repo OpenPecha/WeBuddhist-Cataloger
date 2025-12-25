@@ -6,7 +6,6 @@ export function getReadableAxiosError(err: unknown) {
     }
 
     const status = err.response?.status;
-    const url = err.config?.url;
 
     // No response means network/CORS/server down
     if (!err.response) {
@@ -23,7 +22,7 @@ export function getReadableAxiosError(err: unknown) {
     if (status === 404) {
         return {
             title: "API endpoint not found (404)",
-            detail: `The backend route does not exist yet: ${url ?? "(unknown url)"}`,
+            detail: `The backend route does not exist yet`,
         };
     }
 
