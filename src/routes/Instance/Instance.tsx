@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 
 export const FetchTextDetailInfo = async (textId: string) => {
-    const { data } = await axiosInstance.get(`/api/v1/texts/${textId}`);
+    const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
     return data;
 };
 

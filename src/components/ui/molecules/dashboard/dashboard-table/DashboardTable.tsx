@@ -8,10 +8,6 @@ const LanguageMap = {
     "en": "English",
 }
 
-const TypeMap = {
-    "translation_source": "Translation Source",
-    "none": "No Align Text"
-}
 
 export function DashBoardTable({
     data
@@ -28,7 +24,7 @@ export function DashBoardTable({
                         className="text-center py-10 text-muted-foreground"
                     >
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-base text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                                 Text not found
                             </p>
                         </div>
@@ -43,14 +39,12 @@ export function DashBoardTable({
                     className="cursor-pointer"
                 >
                     <Link to={`/instance/${item.id}`}>
-                        <div className="text-lg font-monlam">{item.title.bo}</div>
+                        <div className="text-lg font-monlam">{item.title.bo || item.title.en}</div>
                     </Link>
                 </TableCell>
                 <TableCell>
-                    {item.date}
+                    Root Text
                 </TableCell>
-                <TableCell>
-                    {TypeMap[item.type as keyof typeof TypeMap]}</TableCell>
                 <TableCell>
                     <div className="flex items-center gap-2">
                         <IconWrapper>
@@ -72,9 +66,6 @@ export function DashBoardTable({
                 <TableRow>
                     <TableHead>
                         Title
-                    </TableHead>
-                    <TableHead>
-                        Date Added
                     </TableHead>
                     <TableHead>
                         Type
