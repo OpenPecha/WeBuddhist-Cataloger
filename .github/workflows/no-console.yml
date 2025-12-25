@@ -2,9 +2,9 @@ name: Check for console.log usage
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [main, dev]
   pull_request:
-    branches: [ main, dev ]
+    branches: [main, dev]
 
 jobs:
   no-console-check:
@@ -18,7 +18,7 @@ jobs:
       - name: Check for console.log statements
         run: |
           echo "🔍 Scanning repository for console.log()..."
-          
+
           if grep -r \
             --exclude-dir={.git,node_modules,dist,build} \
             --exclude-dir=".github" \
