@@ -1,79 +1,96 @@
 import { useParams } from "react-router-dom";
 import MainLayout from "../../components/Layouts/MainLayout";
-import { Badge } from "@/components/ui/atoms/badge";
 import { TextDetailDashboard } from "@/components/ui/molecules/dashboard/textdetail-table/TextDetailDashboard";
 import { Separator } from "@/components/ui/atoms/Seperator";
 import { Button } from "@/components/ui/atoms/button";
+import axiosInstance from "@/config/axios-config";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { getReadableAxiosError } from "@/lib/error";
 
-const dummydata = [
-
-    {
-        "instance_id": "tq039qcQ2uhBP9ePIIGcv",
-        "instance_type": "critical",
-        "text_id": "8hMtbbtbMIErfGKZjj9Tb",
-        "title": {
-            "bo": "དཔལ་ལྡན་ས་གསུམ་མ། ༼ཁ་སྐད།༽"
-        },
-        "language": "bo",
-        "relationship": "translation",
-        "status": true
-    },
-
-    {
-        "instance_id": "oqq9j0NlCEkUX2cdgifli",
-        "instance_type": "critical",
-        "text_id": "3NLv0TEwaLiuPhNL9VW6U",
-        "title": {
-
-            "tibphono": "palden sa sum ma"
-
-        },
-        "language": "tibphono",
-        "annotation": "GYx9PwgC4VzY86XvKxRqL",
-        "relationship": "translation",
-        "status": false
-    }
-
-]
+export const FetchTextDetailInfo = async (textId: string) => {
+    const { data } = await axiosInstance.get(`/api/v1/texts/${textId}`);
+    return data;
+};
 
 const Instance = () => {
     const { id } = useParams();
-    console.log(id);
+
+    const {
+        data: textdata,
+        isLoading,
+        isError,
+        error,
+        refetch,
+    } = useQuery({
+        queryKey: ["textdetail", id],
+        queryFn: () => FetchTextDetailInfo(id as string),
+        enabled: !!id,
+        retry: false,
+        refetchOnWindowFocus: false,
+    });
 
     const breadcrumbItems = [
         { label: "Home", path: "/" },
         { label: "Dashboard", path: "/" },
-        { label: "Instance", path: `/instance/${id}` },
+        { label: "Text Details", path: `/instance/${id}` },
     ];
 
+    if (isLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                Loading...
+            </div>
+        );
+    }
+
+    if (isError) {
+        const info = getReadableAxiosError(error);
+
+        return (
+            <div className="flex flex-col items-center justify-center h-screen gap-3 px-6 text-center">
+                <div className="text-lg font-semibold">{info.title}</div>
+                <div className="text-sm opacity-80">{info.detail}</div>
+
+                {axios.isAxiosError(error) && (
+                    <pre className="mt-2 max-w-2xl overflow-auto rounded border p-3 text-left text-xs opacity-80">
+                        {JSON.stringify(
+                            {
+                                url: error.config?.url,
+                                method: error.config?.method,
+                                status: error.response?.status,
+                                data: error.response?.data,
+                                code: error.code,
+                            },
+                            null,
+                            2
+                        )}
+                    </pre>
+                )}
+
+                <Button variant="outline" onClick={() => refetch()}>
+                    Retry
+                </Button>
+            </div>
+        );
+    }
+
     return (
-        <MainLayout
-            breadcrumbItems={breadcrumbItems}
-        >
+        <MainLayout breadcrumbItems={breadcrumbItems}>
             <div className="flex flex-col w-full h-full border-t border-edge">
-                <div className="text-2xl font-monlam p-4">
-                    དཔལ་ལྡན་ས་གསུམ་མ།
-                </div>
                 <div className="flex items-center gap-2 p-4">
-                    Version
-                    <Badge variant="secondary">
-                        Critical
-                    </Badge>
-                    <Button variant="outline" className="cursor-pointer" >
+                    <p className="text-2xl font-monlam">དཔལ་ལྡན་ས་གསུམ་མ།</p>
+                    <Button variant="outline" className="cursor-pointer">
                         Trigger Bulk Upload
                     </Button>
                 </div>
-                <div className="text-xl p-4">
-                    Alignment
-                </div>
+                <div className="text-xl p-4">Alignment</div>
                 <div className="flex">
                     <div className="w-4 h-full">
                         <Separator />
                     </div>
                     <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
-                        <TextDetailDashboard
-                            data={dummydata}
-                        />
+                        <TextDetailDashboard data={textdata} />
                     </div>
                     <div className="w-4 h-full">
                         <Separator />
@@ -81,7 +98,7 @@ const Instance = () => {
                 </div>
             </div>
         </MainLayout>
-    )
-}
+    );
+};
 
-export default Instance
+export default Instance;

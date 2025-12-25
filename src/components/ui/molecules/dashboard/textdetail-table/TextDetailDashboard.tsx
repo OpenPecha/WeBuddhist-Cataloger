@@ -45,7 +45,7 @@ export function TextDetailDashboard({
                     </Link>
                 </TableCell>
                 <TableCell className=" capitalize">
-                    {item.instance_type}
+                    critical
                 </TableCell>
                 <TableCell className=" capitalize">
                     {item.relationship}
