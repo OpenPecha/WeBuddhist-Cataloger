@@ -57,12 +57,10 @@ const Instance = () => {
         <MainLayout breadcrumbItems={breadcrumbItems}>
             <div className="flex flex-col w-full h-full border-t border-edge">
                 <div className="flex items-center gap-2 p-4">
-                    <p className="text-2xl font-monlam">{textdata?.title.en || textdata?.title.bo || <div className="w-4 h-4 bg-gray-500" />} </p>
-                    {!error && (
-                        <Button variant="outline" className="cursor-pointer" disabled={textdata?.status}>
-                            Trigger Bulk Upload
-                        </Button>
-                    )}
+                    <span className="text-2xl font-monlam">{textdata?.title.en || textdata?.title.bo || <div className="w-4 h-4 bg-gray-500" />} </span>
+                    <Button variant="outline" className="cursor-pointer" disabled={textdata?.status || error}>
+                        Trigger Bulk Upload
+                    </Button>
                 </div>
                 <div className="text-xl p-4">Alignment</div>
                 <div className="flex">
@@ -75,7 +73,7 @@ const Instance = () => {
                                 <div className="text-sm opacity-60">Loading text details...</div>
                             </div>
                         ) : (
-                            <TextDetailDashboard data={textdata.relations || []} />
+                            <TextDetailDashboard data={textdata?.relations || []} />
                         )}
                     </div>
                     <div className="w-4 h-full">

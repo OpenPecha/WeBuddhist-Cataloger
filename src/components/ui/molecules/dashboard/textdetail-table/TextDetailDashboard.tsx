@@ -25,8 +25,8 @@ export function TextDetailDashboard({
                         className="text-center py-10 text-muted-foreground"
                     >
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-base text-muted-foreground">
-                                Text not found
+                            <p className="text-sm text-muted-foreground">
+                                No relations found
                             </p>
                         </div>
                     </TableCell>
