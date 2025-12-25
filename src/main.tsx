@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <Auth0ProviderWithNavigate>
           <App />
-          <Toaster />
+          <Toaster swipeDirections={["bottom", "right"]} />
         </Auth0ProviderWithNavigate>
       </BrowserRouter>
     </QueryClientProvider>

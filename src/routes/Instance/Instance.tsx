@@ -68,13 +68,7 @@ const Instance = () => {
                         <Separator />
                     </div>
                     <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
-                        {isLoading ? (
-                            <div className="flex items-center justify-center h-40">
-                                <div className="text-sm opacity-60">Loading text details...</div>
-                            </div>
-                        ) : (
-                            <TextDetailDashboard data={textdata?.relations || []} />
-                        )}
+                        <TextDetailDashboard isLoading={isLoading} data={textdata?.relations || []} />
                     </div>
                     <div className="w-4 h-full">
                         <Separator />

@@ -11,12 +11,24 @@ const LanguageMap = {
 
 
 export function TextDetailDashboard({
-    data
+    data, isLoading
 }: any) {
 
 
     const renderTableContent = () => {
-
+        if (isLoading) {
+            return (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center py-10 text-muted-foreground">
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-muted-foreground">
+                                Loading Text Details...
+                            </p>
+                        </div>
+                    </TableCell>
+                </TableRow>
+            );
+        }
         if (data.length === 0) {
             return (
                 <TableRow>
@@ -25,8 +37,8 @@ export function TextDetailDashboard({
                         className="text-center py-10 text-muted-foreground"
                     >
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-sm text-muted-foreground">
-                                No relations found
+                            <p className="text-muted-foreground">
+                                No Alignemnts Found
                             </p>
                         </div>
                     </TableCell>

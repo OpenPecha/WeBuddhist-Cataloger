@@ -8,23 +8,34 @@ const LanguageMap = {
     "en": "English",
 }
 
-
 export function DashBoardTable({
-    data
+    data,
+    isLoading
 }: any) {
-
-
     const renderTableContent = () => {
 
+        if (isLoading) {
+            return (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center py-10 text-muted-foreground">
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-muted-foreground">
+                                Loading Texts...
+                            </p>
+                        </div>
+                    </TableCell>
+                </TableRow>
+            );
+        }
         if (data.length === 0) {
             return (
                 <TableRow>
                     <TableCell
-                        colSpan={6}
+                        colSpan={4}
                         className="text-center py-10 text-muted-foreground"
                     >
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-muted-foreground">
                                 Text not found
                             </p>
                         </div>
