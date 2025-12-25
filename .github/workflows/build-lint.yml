@@ -7,7 +7,22 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - run: npm ci
+
+      - name: Check formatting with Prettier
+        run: npm run format:check
+
   build:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,17 +38,3 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
-
-      - run: npm ci
-
-      - name: Check formatting with Prettier
-        run: npm run format:check
