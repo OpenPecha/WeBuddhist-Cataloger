@@ -1,7 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/atoms/button";
 
 const LanguageMap = {
@@ -35,27 +34,23 @@ export function TextDetailDashboard({
             );
         }
 
-        return data.map((item: any) => (
-            <TableRow key={item.id}>
-                <TableCell
-                    className="cursor-pointer"
-                >
-                    <Link to={`/instance/${item.id}`}>
-                        <div className="text-lg font-monlam">{item.title.tibphono || item.title.bo}</div>
-                    </Link>
+        return data.map((item: any, index: number) => (
+            <TableRow key={index}>
+                <TableCell>
+                    <div className="text-lg font-monlam">{item.metadata.title.tibphono || item.metadata.title.bo || item.metadata.title.en}</div>
                 </TableCell>
                 <TableCell className=" capitalize">
                     critical
                 </TableCell>
                 <TableCell className=" capitalize">
-                    {item.relationship}
+                    {item.relation_type}
                 </TableCell>
                 <TableCell>
                     <div className="flex items-center gap-2">
                         <IconWrapper>
                             <LanguagesIcon className="w-4 h-4 text-muted-foreground" />
                         </IconWrapper>
-                        <p className="text-sm text-muted-foreground">{LanguageMap[item.language as keyof typeof LanguageMap]}</p>
+                        <p className="text-sm text-muted-foreground">{LanguageMap[item.metadata.language as keyof typeof LanguageMap]}</p>
                     </div>
 
                 </TableCell>
