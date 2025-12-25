@@ -11,7 +11,10 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<AuthenticationGuard component={Text} />} />
-          <Route path="/instance/:id" element={<AuthenticationGuard component={Instance} />} />
+          <Route
+            path="/instance/:id"
+            element={<AuthenticationGuard component={Instance} />}
+          />
         </Routes>
       </div>
     </div>

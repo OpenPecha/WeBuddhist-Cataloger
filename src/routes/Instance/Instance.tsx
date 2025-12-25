@@ -10,73 +10,84 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 
 export const FetchTextDetailInfo = async (textId: string) => {
-    const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
-    return data;
+  const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
+  return data;
 };
 
 const Instance = () => {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const {
-        data: textdata,
-        isLoading,
-        isError,
-        error,
-        refetch,
-    } = useQuery({
-        queryKey: ["textdetail", id],
-        queryFn: () => FetchTextDetailInfo(id as string),
-        enabled: !!id,
-        retry: false,
-        refetchOnWindowFocus: false,
-    });
+  const {
+    data: textdata,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["textdetail", id],
+    queryFn: () => FetchTextDetailInfo(id as string),
+    enabled: !!id,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
-    const breadcrumbItems = [
-        { label: "Home", path: "/" },
-        { label: "Dashboard", path: "/" },
-        { label: "Text Details", path: `/instance/${id}` },
-    ];
+  const breadcrumbItems = [
+    { label: "Home", path: "/" },
+    { label: "Dashboard", path: "/" },
+    { label: "Text Details", path: `/instance/${id}` },
+  ];
 
-    useEffect(() => {
-        if (isError && error) {
-            const info = getReadableAxiosError(error);
-            toast.error(info.title, {
-                description: info.detail,
-                duration: 5000,
-                action: {
-                    label: "Retry",
-                    onClick: () => {
-                        void refetch();
-                    },
-                },
-            });
-        }
-    }, [isError, error, refetch]);
+  useEffect(() => {
+    if (isError && error) {
+      const info = getReadableAxiosError(error);
+      toast.error(info.title, {
+        description: info.detail,
+        duration: 5000,
+        action: {
+          label: "Retry",
+          onClick: () => {
+            void refetch();
+          },
+        },
+      });
+    }
+  }, [isError, error, refetch]);
 
-    return (
-        <MainLayout breadcrumbItems={breadcrumbItems}>
-            <div className="flex flex-col w-full h-full border-t border-edge">
-                <div className="flex items-center gap-2 p-4">
-                    <span className="text-2xl font-monlam">{textdata?.title.en || textdata?.title.bo || <div className="w-4 h-4 bg-gray-500" />} </span>
-                    <Button variant="outline" className="cursor-pointer" disabled={textdata?.status || error}>
-                        Trigger Bulk Upload
-                    </Button>
-                </div>
-                <div className="text-xl p-4">Alignment</div>
-                <div className="flex">
-                    <div className="w-4 h-full">
-                        <Separator />
-                    </div>
-                    <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
-                        <TextDetailDashboard isLoading={isLoading} data={textdata?.relations || []} />
-                    </div>
-                    <div className="w-4 h-full">
-                        <Separator />
-                    </div>
-                </div>
-            </div>
-        </MainLayout>
-    );
+  return (
+    <MainLayout breadcrumbItems={breadcrumbItems}>
+      <div className="flex flex-col w-full h-full border-t border-edge">
+        <div className="flex items-center gap-2 p-4">
+          <span className="text-2xl font-monlam">
+            {textdata?.title.en || textdata?.title.bo || (
+              <div className="w-4 h-4 bg-gray-500" />
+            )}{" "}
+          </span>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            disabled={textdata?.status || error}
+          >
+            Trigger Bulk Upload
+          </Button>
+        </div>
+        <div className="text-xl p-4">Alignment</div>
+        <div className="flex">
+          <div className="w-4 h-full">
+            <Separator />
+          </div>
+          <div className="flex-1 max-h-[calc(100vh-15rem)] border border-edge overflow-y-auto">
+            <TextDetailDashboard
+              isLoading={isLoading}
+              data={textdata?.relations || []}
+            />
+          </div>
+          <div className="w-4 h-full">
+            <Separator />
+          </div>
+        </div>
+      </div>
+    </MainLayout>
+  );
 };
 
 export default Instance;
