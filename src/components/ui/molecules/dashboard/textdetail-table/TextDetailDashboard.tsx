@@ -87,7 +87,7 @@ export function TextDetailDashboard({ data, isLoading }: any) {
             className="cursor-pointer"
             disabled={item.status}
           >
-            Trigger Upload
+            Sync
           </Button>
         </TableCell>
       </TableRow>

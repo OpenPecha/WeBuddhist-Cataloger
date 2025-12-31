@@ -23,7 +23,7 @@ export const FetchTextInfo = async (
       ...(search && { search }),
     },
   });
-  return data;
+  return data?.texts;
 };
 
 const Dashboard = () => {
@@ -43,7 +43,6 @@ const Dashboard = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
-
   const totalPages = textmaindata ? Math.ceil(textmaindata.length / limit) : 1; // should be data.total but total is not send by backend
   const breadcrumbItems = [
     { label: "Home", path: "/" },

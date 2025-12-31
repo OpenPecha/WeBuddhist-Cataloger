@@ -67,7 +67,7 @@ const Instance = () => {
             className="cursor-pointer"
             disabled={textdata?.status || error}
           >
-            Trigger Bulk Upload
+            Sync
           </Button>
         </div>
         <div className="text-xl p-4">Alignment</div>
