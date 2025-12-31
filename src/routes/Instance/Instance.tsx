@@ -8,7 +8,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getReadableAxiosError } from "@/lib/error";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/atoms/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/atoms/select";
 import { MoveRightIcon, RotateCcw } from "lucide-react";
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
@@ -72,9 +79,15 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_DEV_URL}>Development</SelectItem>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_TEST_URL}>Test</SelectItem>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_PROD_URL}>Production</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_DEV_URL}>
+                    Development
+                  </SelectItem>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_TEST_URL}>
+                    Test
+                  </SelectItem>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_PROD_URL}>
+                    Production
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -85,9 +98,15 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_DEV_URL}>Development</SelectItem>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_TEST_URL}>Test</SelectItem>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_PROD_URL}>Production</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_DEV_URL}>
+                    Development
+                  </SelectItem>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_TEST_URL}>
+                    Test
+                  </SelectItem>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_PROD_URL}>
+                    Production
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -100,7 +119,6 @@ const Instance = () => {
               Bulk Sync
             </Button>
           </div>
-
         </div>
         <div className="text-xl p-4">Alignment</div>
         <div className="flex">
