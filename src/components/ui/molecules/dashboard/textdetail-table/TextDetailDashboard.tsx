@@ -36,7 +36,7 @@ export function TextDetailDashboard({ data, isLoading }: any) {
       return (
         <TableRow>
           <TableCell
-            colSpan={6}
+            colSpan={5}
             className="text-center py-10 text-muted-foreground"
           >
             <div className="flex flex-col items-center justify-center">
@@ -56,7 +56,6 @@ export function TextDetailDashboard({ data, isLoading }: any) {
               item.metadata.title.en}
           </div>
         </TableCell>
-        <TableCell className=" capitalize">critical</TableCell>
         <TableCell className=" capitalize">{item.relation_type}</TableCell>
         <TableCell>
           <div className="flex items-center gap-2">
@@ -98,7 +97,6 @@ export function TextDetailDashboard({ data, isLoading }: any) {
       <TableHeader className=" bg-sidebar">
         <TableRow>
           <TableHead>Title</TableHead>
-          <TableHead>Instance Type</TableHead>
           <TableHead>Relationship</TableHead>
           <TableHead>Language</TableHead>
           <TableHead>Status</TableHead>
