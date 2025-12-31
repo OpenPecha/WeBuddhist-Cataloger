@@ -7,8 +7,9 @@ import axiosInstance from "@/config/axios-config";
 import { useQuery } from "@tanstack/react-query";
 import { getReadableAxiosError } from "@/lib/error";
 import { toast } from "sonner";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/atoms/select";
+import { MoveRightIcon, RotateCcw } from "lucide-react";
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
   return data;
@@ -16,6 +17,8 @@ export const FetchTextDetailInfo = async (textId: string) => {
 
 const Instance = () => {
   const { id } = useParams();
+  const [source, setSource] = useState<string>("");
+  const [destination, setDestination] = useState<string>("");
 
   const {
     data: textdata,
@@ -56,19 +59,48 @@ const Instance = () => {
   return (
     <MainLayout breadcrumbItems={breadcrumbItems}>
       <div className="flex flex-col w-full h-full border-t border-edge">
-        <div className="flex items-center gap-2 p-4">
+        <div className="flex flex-col items-start gap-2 p-4">
           <span className="text-2xl font-monlam">
             {textdata?.title.en || textdata?.title.bo || (
               <div className="w-4 h-4 bg-gray-500" />
             )}{" "}
           </span>
-          <Button
-            variant="outline"
-            className="cursor-pointer"
-            disabled={textdata?.status || error}
-          >
-            Sync
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={source} onValueChange={setSource}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Source" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_DEV_URL}>Development</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_TEST_URL}>Test</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_SOURCE_PROD_URL}>Production</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <MoveRightIcon className="w-4 h-4 text-gray-400" />
+            <Select value={destination} onValueChange={setDestination}>
+              <SelectTrigger className="w-[150px]">
+                <SelectValue placeholder="Destination" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_DEV_URL}>Development</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_TEST_URL}>Test</SelectItem>
+                  <SelectItem value={import.meta.env.VITE_DESTINATION_PROD_URL}>Production</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              disabled={!source || !destination || textdata?.status || error}
+            >
+              <RotateCcw className="w-4 h-4" />
+              Bulk Sync
+            </Button>
+          </div>
+
         </div>
         <div className="text-xl p-4">Alignment</div>
         <div className="flex">

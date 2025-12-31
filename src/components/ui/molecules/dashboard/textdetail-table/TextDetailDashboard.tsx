@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
-import { LanguagesIcon } from "lucide-react";
+import { LanguagesIcon, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/atoms/button";
 
 const LanguageMap = {
@@ -86,6 +86,7 @@ export function TextDetailDashboard({ data, isLoading }: any) {
             className="cursor-pointer"
             disabled={item.status}
           >
+            <RotateCcw className="w-4 h-4" />
             Sync
           </Button>
         </TableCell>
