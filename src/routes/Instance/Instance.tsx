@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/atoms/select";
 import { MoveRightIcon, RotateCcw } from "lucide-react";
+import { Skeleton } from "@/components/ui/atoms/skeleton";
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
   return data;
@@ -69,7 +70,7 @@ const Instance = () => {
         <div className="flex flex-col items-start gap-2 p-4">
           <span className="text-2xl font-monlam">
             {textdata?.title.en || textdata?.title.bo || (
-              <div className="w-4 h-4 bg-gray-500" />
+              <Skeleton className=" w-md h-8" />
             )}{" "}
           </span>
           <div className="flex items-center gap-2">
@@ -79,15 +80,9 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_DEV_URL}>
-                    Development
-                  </SelectItem>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_TEST_URL}>
-                    Test
-                  </SelectItem>
-                  <SelectItem value={import.meta.env.VITE_SOURCE_PROD_URL}>
-                    Production
-                  </SelectItem>
+                  <SelectItem value="development">Development</SelectItem>
+                  <SelectItem value="test">Test</SelectItem>
+                  <SelectItem value="production">Production</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -98,15 +93,9 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_DEV_URL}>
-                    Development
-                  </SelectItem>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_TEST_URL}>
-                    Test
-                  </SelectItem>
-                  <SelectItem value={import.meta.env.VITE_DESTINATION_PROD_URL}>
-                    Production
-                  </SelectItem>
+                  <SelectItem value="development">Development</SelectItem>
+                  <SelectItem value="test">Test</SelectItem>
+                  <SelectItem value="production">Production</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -7,8 +7,8 @@ import {
   TableRow,
 } from "@/components/ui/atoms/table";
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
-import { LanguagesIcon, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/atoms/button";
+import { LanguagesIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/atoms/skeleton";
 
 const LanguageMap = {
   bo: "Tibetan",
@@ -21,22 +21,20 @@ export function TextDetailDashboard({ data, isLoading }: any) {
     if (isLoading) {
       return (
         <TableRow>
-          <TableCell
-            colSpan={6}
-            className="text-center py-10 text-muted-foreground"
-          >
-            <div className="flex flex-col items-center justify-center">
-              <p className="text-muted-foreground">Loading Text Details...</p>
-            </div>
-          </TableCell>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <TableCell key={index}>
+              <Skeleton className="h-10 w-full" />
+            </TableCell>
+          ))}
         </TableRow>
       );
     }
+
     if (data.length === 0) {
       return (
         <TableRow>
           <TableCell
-            colSpan={5}
+            colSpan={3}
             className="text-center py-10 text-muted-foreground"
           >
             <div className="flex flex-col items-center justify-center">
@@ -50,13 +48,15 @@ export function TextDetailDashboard({ data, isLoading }: any) {
     return data.map((item: any, index: number) => (
       <TableRow key={index}>
         <TableCell>
-          <div className="text-lg font-monlam">
+          <div className="text-lg font-monlam max-w-0">
             {item.metadata.title.tibphono ||
               item.metadata.title.bo ||
               item.metadata.title.en}
           </div>
         </TableCell>
-        <TableCell className=" capitalize">{item.relation_type}</TableCell>
+
+        <TableCell className="capitalize">{item.relation_type}</TableCell>
+
         <TableCell>
           <div className="flex items-center gap-2">
             <IconWrapper>
@@ -67,43 +67,26 @@ export function TextDetailDashboard({ data, isLoading }: any) {
             </p>
           </div>
         </TableCell>
-        <TableCell>
-          {item.status ? (
-            <div className="flex items-center gap-2">
-              {" "}
-              <div className="w-3 h-3 bg-green-500" /> Completed
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              {" "}
-              <div className="w-3 h-3  bg-red-500" /> Pending
-            </div>
-          )}
-        </TableCell>
-        <TableCell>
-          <Button
-            variant="outline"
-            className="cursor-pointer"
-            disabled={item.status}
-          >
-            <RotateCcw className="w-4 h-4" />
-            Sync
-          </Button>
-        </TableCell>
       </TableRow>
     ));
   };
+
   return (
-    <Table className="bg-white">
-      <TableHeader className=" bg-sidebar">
+    <Table className="w-full table-fixed bg-white">
+      <colgroup>
+        <col style={{ width: "70%" }} />
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "15%" }} />
+      </colgroup>
+
+      <TableHeader className="bg-sidebar">
         <TableRow>
           <TableHead>Title</TableHead>
           <TableHead>Relationship</TableHead>
           <TableHead>Language</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
+
       <TableBody>{renderTableContent()}</TableBody>
     </Table>
   );

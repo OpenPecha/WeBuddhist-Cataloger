@@ -9,6 +9,7 @@ import {
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/atoms/skeleton";
 
 const LanguageMap = {
   bo: "Tibetan",
@@ -20,17 +21,15 @@ export function DashBoardTable({ data, isLoading }: any) {
     if (isLoading) {
       return (
         <TableRow>
-          <TableCell
-            colSpan={6}
-            className="text-center py-10 text-muted-foreground"
-          >
-            <div className="flex flex-col items-center justify-center">
-              <p className="text-muted-foreground">Loading Texts...</p>
-            </div>
-          </TableCell>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <TableCell key={index}>
+              <Skeleton className="h-10 w-full" />
+            </TableCell>
+          ))}
         </TableRow>
       );
     }
+
     if (data.length === 0) {
       return (
         <TableRow>
@@ -50,12 +49,14 @@ export function DashBoardTable({ data, isLoading }: any) {
       <TableRow key={item.text_id}>
         <TableCell className="cursor-pointer">
           <Link to={`/instance/${item.text_id}`}>
-            <div className="text-lg font-monlam">
+            <div className="text-lg font-monlam max-w-0">
               {item.title.bo || item.title.en}
             </div>
           </Link>
         </TableCell>
+
         <TableCell>Root Text</TableCell>
+
         <TableCell>
           <div className="flex items-center gap-2">
             <IconWrapper>
@@ -66,32 +67,26 @@ export function DashBoardTable({ data, isLoading }: any) {
             </p>
           </div>
         </TableCell>
-        <TableCell>
-          {item.status ? (
-            <div className="flex items-center gap-2">
-              {" "}
-              <div className="w-3 h-3 bg-green-500" /> Completed
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              {" "}
-              <div className="w-3 h-3  bg-red-500" /> Pending
-            </div>
-          )}
-        </TableCell>
       </TableRow>
     ));
   };
+
   return (
-    <Table className="bg-white">
-      <TableHeader className=" bg-sidebar">
+    <Table className="w-full table-fixed bg-white">
+      <colgroup>
+        <col style={{ width: "70%" }} />
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "15%" }} />
+      </colgroup>
+
+      <TableHeader className="bg-sidebar">
         <TableRow>
           <TableHead>Title</TableHead>
           <TableHead>Type</TableHead>
           <TableHead>Language</TableHead>
-          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
+
       <TableBody>{renderTableContent()}</TableBody>
     </Table>
   );
