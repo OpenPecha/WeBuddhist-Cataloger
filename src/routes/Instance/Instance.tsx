@@ -124,9 +124,19 @@ const Instance = () => {
               variant="outline"
               className="cursor-pointer"
               onClick={() => synxText()}
-              disabled={!source || !destination || textdata?.status || error || isPending}
+              disabled={
+                !source ||
+                !destination ||
+                textdata?.status ||
+                error ||
+                isPending
+              }
             >
-              {isPending ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <RotateCcw className="w-4 h-4" />}
+              {isPending ? (
+                <Loader2Icon className="w-4 h-4 animate-spin" />
+              ) : (
+                <RotateCcw className="w-4 h-4" />
+              )}
               Sync
             </Button>
           </div>
