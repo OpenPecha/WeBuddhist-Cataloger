@@ -45,15 +45,19 @@ const Instance = () => {
 
   const { mutate: synxText, isPending } = useMutation({
     mutationFn: () => {
-      return axiosInstance.post(`/api/v1/text-uploader`, {
-        openpecha_api_url: source,
-        destination_url: destination,
-        text_id: id,
-      }, {
-        headers: {
-          "Authorization": `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`
-        }
-      });
+      return axiosInstance.post(
+        `/api/v1/text-uploader`,
+        {
+          openpecha_api_url: source,
+          destination_url: destination,
+          text_id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`,
+          },
+        },
+      );
     },
     onSuccess: () => {
       toast.success("Text will be uploaded to WeBuddhist within 24 hours");
