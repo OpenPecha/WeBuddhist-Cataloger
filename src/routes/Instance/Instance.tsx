@@ -44,10 +44,10 @@ const Instance = () => {
 
   const { mutate: synxText, isPending } = useMutation({
     mutationFn: () => {
-      return axiosInstance.post(`/api/v1/upload-text/texts/${id}`, {
-        textId: id,
-        source,
-        destination,
+      return axiosInstance.post(`/api/v1/text-uploader`, {
+        openpecha_api_url: source,
+        destination_url: destination,
+        text_id: id,
       });
     },
     onSuccess: () => {
@@ -100,9 +100,9 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="development">Development</SelectItem>
-                  <SelectItem value="test">Test</SelectItem>
-                  <SelectItem value="production">Production</SelectItem>
+                  <SelectItem value="DEVELOPMENT">Development</SelectItem>
+                  <SelectItem value="STAGING">Staging</SelectItem>
+                  <SelectItem value="PRODUCTION">Production</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -114,9 +114,10 @@ const Instance = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="development">Development</SelectItem>
-                  <SelectItem value="test">Test</SelectItem>
-                  <SelectItem value="production">Production</SelectItem>
+                  <SelectItem value="LOCAL">Local</SelectItem>
+                  <SelectItem value="DEVELOPMENT">Development</SelectItem>
+                  <SelectItem value="STAGING">Staging</SelectItem>
+                  <SelectItem value="PRODUCTION">Production</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
