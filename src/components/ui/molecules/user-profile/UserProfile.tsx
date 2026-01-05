@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { LogOut } from "lucide-react";
+import { clearAccessToken } from "@/lib/auth-utils";
 
 import {
   DropdownMenu,
@@ -12,6 +13,15 @@ import {
 
 const UserProfile = () => {
   const { user, logout } = useAuth0();
+
+  const handleLogout = () => {
+    clearAccessToken();
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin + "/login",
+      },
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -42,13 +52,7 @@ const UserProfile = () => {
 
         <DropdownMenuItem
           className="cursor-pointer rounded-none"
-          onClick={() =>
-            logout({
-              logoutParams: {
-                returnTo: window.location.origin + "/login",
-              },
-            })
-          }
+          onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />
           Logout

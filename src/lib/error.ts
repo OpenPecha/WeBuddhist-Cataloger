@@ -22,16 +22,16 @@ export function getReadableAxiosError(err: unknown) {
   if (status === 404) {
     return {
       title: "API endpoint not found (404)",
-      detail: `The backend route does not exist yet`,
+      detail: err.response.data.detail,
     };
   }
 
   // Common auth cases
   if (status === 401) {
-    return { title: "Unauthorized (401)", detail: "Please log in again." };
+    return { title: "Unauthorized (401)", detail: err.response.data.detail };
   }
   if (status === 403) {
-    return { title: "Forbidden (403)", detail: "You don’t have access." };
+    return { title: "Forbidden (403)", detail: err.response.data.detail };
   }
 
   // Backend may send useful message bodies:

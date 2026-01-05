@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/atoms/select";
 import { Loader2Icon, MoveRightIcon, RotateCcw } from "lucide-react";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
+import { ACCESS_TOKEN } from "@/lib/constants";
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
   return data;
@@ -48,6 +49,10 @@ const Instance = () => {
         openpecha_api_url: source,
         destination_url: destination,
         text_id: id,
+      }, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem(ACCESS_TOKEN)}`
+        }
       });
     },
     onSuccess: () => {
