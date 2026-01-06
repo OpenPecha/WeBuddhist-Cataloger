@@ -23,7 +23,7 @@ function App() {
               element={<AuthenticationGuard component={Text} />}
             />
             <Route
-              path="/instance/:id"
+              path="/text/:id"
               element={<AuthenticationGuard component={Instance} />}
             />
           </Routes>

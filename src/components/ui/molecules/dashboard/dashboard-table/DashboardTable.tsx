@@ -49,7 +49,7 @@ export function DashBoardTable({ data, isLoading }: any) {
     return data.map((item: any) => (
       <TableRow key={item.text_id}>
         <TableCell className="cursor-pointer font-monlam text-lg truncate">
-          <Link to={`/instance/${item.text_id}`}>
+          <Link to={`/text/${item.text_id}`}>
             {item.title.bo || item.title.en || item.title.tib}
           </Link>
         </TableCell>
