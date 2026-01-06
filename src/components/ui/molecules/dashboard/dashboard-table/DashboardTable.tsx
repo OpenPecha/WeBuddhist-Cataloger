@@ -14,20 +14,23 @@ import { Skeleton } from "@/components/ui/atoms/skeleton";
 const LanguageMap = {
   bo: "Tibetan",
   en: "English",
+  tibphono: "Spoken Tibetan",
+  tib: "Tib-Phono",
 };
-
+const SKELETON_ROWS = 10;
+const SKELETON_COLS = 3;
 export function DashBoardTable({ data, isLoading }: any) {
   const renderTableContent = () => {
     if (isLoading) {
-      return (
-        <TableRow>
-          {Array.from({ length: 3 }).map((_, index) => (
-            <TableCell key={index}>
-              <Skeleton className="h-10 w-full" />
+      return Array.from({ length: SKELETON_ROWS }).map((_, rowIndex) => (
+        <TableRow key={`skeleton-row-${rowIndex}`}>
+          {Array.from({ length: SKELETON_COLS }).map((_, colIndex) => (
+            <TableCell key={`skeleton-cell-${rowIndex}-${colIndex}`}>
+              <Skeleton className=" h-7 w-full" />
             </TableCell>
           ))}
         </TableRow>
-      );
+      ));
     }
 
     if (data.length === 0) {
@@ -47,15 +50,17 @@ export function DashBoardTable({ data, isLoading }: any) {
 
     return data.map((item: any) => (
       <TableRow key={item.text_id}>
-        <TableCell className="cursor-pointer">
+        <TableCell className="cursor-pointer font-monlam text-lg truncate">
           <Link to={`/instance/${item.text_id}`}>
-            <div className="text-lg font-monlam max-w-0">
-              {item.title.bo || item.title.en}
-            </div>
+            {item.title.bo || item.title.en || item.title.tib}
           </Link>
         </TableCell>
 
-        <TableCell>Root Text</TableCell>
+        <TableCell>
+          {
+            item.type
+          }
+        </TableCell>
 
         <TableCell>
           <div className="flex items-center gap-2">

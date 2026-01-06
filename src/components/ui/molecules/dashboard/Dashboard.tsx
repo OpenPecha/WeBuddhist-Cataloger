@@ -43,11 +43,17 @@ const Dashboard = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
-  const totalPages = textmaindata ? Math.ceil(textmaindata.length / limit) : 1; // should be data.total but total is not send by backend
+
+  const isLastPage = textmaindata ? textmaindata.length < limit : false;
+  const hasData = textmaindata && textmaindata.length > 0;
   const breadcrumbItems = [
     { label: "Home", path: "/" },
     { label: "Dashboard", path: "/" },
   ];
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
   useEffect(() => {
     if (isError && error) {
@@ -84,7 +90,8 @@ const Dashboard = () => {
 
       <PaginationComponent
         currentPage={currentPage}
-        totalPages={totalPages}
+        isLastPage={isLastPage}
+        hasData={hasData}
         onPageChange={setCurrentPage}
       />
     </MainLayout>

@@ -13,7 +13,8 @@ import { Skeleton } from "@/components/ui/atoms/skeleton";
 const LanguageMap = {
   bo: "Tibetan",
   en: "English",
-  tibphono: "Tibetan Phonetic",
+  tibphono: "Spoken Tibetan",
+  tib: "Tib-Phono",
 };
 
 export function TextDetailDashboard({ data, isLoading }: any) {
@@ -51,7 +52,8 @@ export function TextDetailDashboard({ data, isLoading }: any) {
           <div className="text-lg font-monlam max-w-0">
             {item.metadata.title.tibphono ||
               item.metadata.title.bo ||
-              item.metadata.title.en}
+              item.metadata.title.en ||
+              item.metadata.title.tib}
           </div>
         </TableCell>
 
