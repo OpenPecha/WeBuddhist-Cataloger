@@ -135,3 +135,28 @@ div::-webkit-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+.moving-file {
+  animation: transfer 2s ease-in-out infinite;
+}
+
+@keyframes transfer {
+  0% {
+    transform: translate(60px, 75px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    transform: translate(490px, 75px);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(490px, 75px);
+    opacity: 0;
+  }
+}

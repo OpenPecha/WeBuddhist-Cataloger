@@ -19,6 +19,8 @@ import {
 import { Loader2Icon, MoveRightIcon, RotateCcw } from "lucide-react";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
 import { ACCESS_TOKEN } from "@/lib/constants";
+import { SvgLoader } from "@/components/ui/atoms/svgLoader";
+
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
   return data;
@@ -60,7 +62,9 @@ const Instance = () => {
       );
     },
     onSuccess: () => {
-      toast.success("Text will be uploaded to WeBuddhist within 24 hours");
+      toast.success(
+        "Text will be uploaded to WeBuddhist within 24 hours after Mapping is completed",
+      );
     },
     onError: (error) => {
       const info = getReadableAxiosError(error);
@@ -150,7 +154,9 @@ const Instance = () => {
               Sync
             </Button>
           </div>
+          {isPending && <SvgLoader />}
         </div>
+
         <div className="text-xl p-4">Alignments</div>
         <div className="flex">
           <div className="w-4 h-full">
