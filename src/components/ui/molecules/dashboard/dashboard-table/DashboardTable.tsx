@@ -56,11 +56,7 @@ export function DashBoardTable({ data, isLoading }: any) {
           </Link>
         </TableCell>
 
-        <TableCell>
-          {
-            item.type
-          }
-        </TableCell>
+        <TableCell>{item.type}</TableCell>
 
         <TableCell>
           <div className="flex items-center gap-2">
