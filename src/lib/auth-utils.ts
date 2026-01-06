@@ -25,10 +25,6 @@ export const syncAuth0TokenToSessionStorage = () => {
       return;
     }
     sessionStorage.setItem("accessToken", idToken);
-
-    console.log(
-      "Auth0 id_token successfully synced to sessionStorage as accessToken",
-    );
   } catch (error) {
     console.error("Error syncing Auth0 token to sessionStorage:", error);
   }
