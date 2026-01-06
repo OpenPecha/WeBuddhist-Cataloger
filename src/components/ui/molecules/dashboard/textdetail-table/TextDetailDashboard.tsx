@@ -9,13 +9,7 @@ import {
 import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
-
-const LanguageMap = {
-  bo: "Tibetan",
-  en: "English",
-  tibphono: "Spoken Tibetan",
-  tib: "Tib-Phono",
-};
+import { LanguageMap } from "@/lib/constants";
 
 export function TextDetailDashboard({ data, isLoading }: any) {
   const renderTableContent = () => {

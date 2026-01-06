@@ -10,15 +10,13 @@ import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
+import {
+  LanguageMap,
+  TypeMap,
+  SKELETON_ROWS,
+  SKELETON_COLS,
+} from "@/lib/constants";
 
-const LanguageMap = {
-  bo: "Tibetan",
-  en: "English",
-  tibphono: "Spoken Tibetan",
-  tib: "Tib-Phono",
-};
-const SKELETON_ROWS = 10;
-const SKELETON_COLS = 3;
 export function DashBoardTable({ data, isLoading }: any) {
   const renderTableContent = () => {
     if (isLoading) {
@@ -56,7 +54,7 @@ export function DashBoardTable({ data, isLoading }: any) {
           </Link>
         </TableCell>
 
-        <TableCell>{item.type}</TableCell>
+        <TableCell>{TypeMap[item.type as keyof typeof TypeMap]}</TableCell>
 
         <TableCell>
           <div className="flex items-center gap-2">
