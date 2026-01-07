@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { LogOut } from "lucide-react";
-import { clearAccessToken } from "@/lib/auth-utils";
 
 import {
   DropdownMenu,
@@ -10,12 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/atoms/dropdown-menu";
+import { ACCESS_TOKEN } from "@/lib/constants";
 
 const UserProfile = () => {
   const { user, logout } = useAuth0();
 
   const handleLogout = () => {
-    clearAccessToken();
+    sessionStorage.removeItem(ACCESS_TOKEN);
     logout({
       logoutParams: {
         returnTo: window.location.origin + "/login",
