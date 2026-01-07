@@ -28,7 +28,7 @@ export const FetchTextDetailInfo = async (textId: string) => {
 
 const Instance = () => {
   const { id } = useParams();
-  const [source, setSource] = useState<string>("");
+  const [source] = useState<string>("PRODUCTION");
   const [destination, setDestination] = useState<string>("");
 
   const {
@@ -107,14 +107,12 @@ const Instance = () => {
           </span>
           <div className="flex items-center gap-2">
             <p className="text-sm text-muted-foreground">Pecha Server:</p>
-            <Select value={source} onValueChange={setSource}>
+            <Select value={source} onValueChange={() => {}} disabled>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Source" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="DEVELOPMENT">Development</SelectItem>
-                  <SelectItem value="STAGING">Staging</SelectItem>
                   <SelectItem value="PRODUCTION">Production</SelectItem>
                 </SelectGroup>
               </SelectContent>
