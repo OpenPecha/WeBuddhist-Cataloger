@@ -13,7 +13,6 @@ import { LanguageMap } from "@/lib/constants";
 import { getFontClass } from "@/lib/utils";
 
 export function TextDetailDashboard({ data, isLoading }: any) {
-
   const renderTableContent = () => {
     if (isLoading) {
       return (

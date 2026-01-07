@@ -5,7 +5,7 @@ export const LanguageMap = {
   en: "English",
   tibphono: "Spoken Tibetan",
   tib: "Tib-Phono",
-  zh:" Chinese"
+  zh: " Chinese",
 };
 export const TypeMap = {
   root: "Root Text",

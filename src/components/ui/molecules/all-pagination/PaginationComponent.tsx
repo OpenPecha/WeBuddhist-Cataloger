@@ -22,8 +22,7 @@ export const PaginationComponent: React.FC<PaginationProps> = ({
       className={cn("flex p-4 w-full items-center justify-between ", className)}
     >
       <div className="text-sm text-muted-foreground">
-        Page <span className=" text-black">{currentPage}</span>
-        {!hasData && currentPage === 1 && " (No data)"}
+        Page <span className=" text-black"> {currentPage}</span>
       </div>
       <div className="flex items-center space-x-2">
         <PaginationPrevious
