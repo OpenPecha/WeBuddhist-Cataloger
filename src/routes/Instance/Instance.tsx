@@ -95,6 +95,8 @@ const Instance = () => {
       });
     }
   }, [isError, error, refetch]);
+  const estimatedTime = (textdata?.relations.length + 1) * 5; // plus one for root
+  const estimatedTimeInMinutes = estimatedTime % 60;
 
   return (
     <MainLayout breadcrumbItems={breadcrumbItems}>
@@ -151,6 +153,11 @@ const Instance = () => {
               )}
               Sync
             </Button>
+            {isPending && (
+              <p className="text-sm text-muted-foreground animate-pulse">
+                Estimated Time: {estimatedTimeInMinutes} minutes
+              </p>
+            )}
           </div>
           {isPending && <SvgLoader />}
         </div>
