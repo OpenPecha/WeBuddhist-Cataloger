@@ -1,8 +1,7 @@
 import axios from "axios";
 import { ACCESS_TOKEN } from "@/lib/constants";
 
-const axiosInstance = axios.create({
-});
+const axiosInstance = axios.create({});
 
 axiosInstance.interceptors.request.use(
   (config) => {
