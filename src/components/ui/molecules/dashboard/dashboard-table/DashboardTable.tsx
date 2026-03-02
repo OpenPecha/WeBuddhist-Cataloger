@@ -50,7 +50,11 @@ export function DashBoardTable({ data, isLoading }: any) {
       <TableRow key={item.text_id}>
         <TableCell className="cursor-pointer font-monlam text-lg truncate">
           <Link to={`/text/${item.text_id}`}>
-            {item.title.bo || item.title.en || item.title.tib || item.title.lzh || item.title.zh}
+            {item.title.bo ||
+              item.title.en ||
+              item.title.tib ||
+              item.title.lzh ||
+              item.title.zh}
           </Link>
         </TableCell>
 

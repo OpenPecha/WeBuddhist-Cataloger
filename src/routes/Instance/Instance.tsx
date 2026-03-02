@@ -103,13 +103,14 @@ const Instance = () => {
       <div className="flex flex-col w-full h-full border-t border-edge">
         <div className="flex flex-col items-start gap-4 p-4">
           <span className="text-2xl font-monlam">
-            {textdata?.title.en || textdata?.title.bo || textdata?.title.lzh || textdata?.title.zh || (
-              <Skeleton className=" w-md h-8" />
-            )}{" "}
+            {textdata?.title.en ||
+              textdata?.title.bo ||
+              textdata?.title.lzh ||
+              textdata?.title.zh || <Skeleton className=" w-md h-8" />}{" "}
           </span>
           <div className="flex items-center gap-2">
             <p className="text-sm text-muted-foreground">Pecha Server:</p>
-            <Select value={source} onValueChange={() => { }} disabled>
+            <Select value={source} onValueChange={() => {}} disabled>
               <SelectTrigger className="w-[200px]">
                 <SelectValue />
               </SelectTrigger>
