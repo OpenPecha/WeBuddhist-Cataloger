@@ -10,7 +10,7 @@ import { IconWrapper } from "../../Icon-wrapper/IconWrapper";
 import { LanguagesIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
 import { LanguageMap } from "@/lib/constants";
-import { getFontClass } from "@/lib/utils";
+import { getFontClass, getFirstAvailableTitle } from "@/lib/utils";
 
 export function TextDetailDashboard({ data, isLoading }: any) {
   const renderTableContent = () => {
@@ -45,12 +45,7 @@ export function TextDetailDashboard({ data, isLoading }: any) {
       <TableRow key={index}>
         <TableCell>
           <div className={`${getFontClass(item.metadata.language)} max-w-0`}>
-            {item.metadata.title.tibphono ||
-              item.metadata.title.bo ||
-              item.metadata.title.en ||
-              item.metadata.title.tib ||
-              item.metadata.title.zh ||
-              item.metadata.title.lzh}
+            {getFirstAvailableTitle(item.metadata.title)}
           </div>
         </TableCell>
 

@@ -16,6 +16,7 @@ import {
   SKELETON_ROWS,
   SKELETON_COLS,
 } from "@/lib/constants";
+import { getFirstAvailableTitle } from "@/lib/utils";
 
 export function DashBoardTable({ data, isLoading }: any) {
   const renderTableContent = () => {
@@ -50,11 +51,7 @@ export function DashBoardTable({ data, isLoading }: any) {
       <TableRow key={item.text_id}>
         <TableCell className="cursor-pointer font-monlam text-lg truncate">
           <Link to={`/text/${item.text_id}`}>
-            {item.title.bo ||
-              item.title.en ||
-              item.title.tib ||
-              item.title.lzh ||
-              item.title.zh}
+            {getFirstAvailableTitle(item.title)}
           </Link>
         </TableCell>
 

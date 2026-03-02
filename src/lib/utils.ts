@@ -11,3 +11,11 @@ export const getFontClass = (language: string) => {
   }
   return "font-monlam text-lg ";
 };
+
+export type MultilingualTitle = Record<string, string | undefined>;
+
+export const getFirstAvailableTitle = (
+  title: MultilingualTitle | undefined,
+): string => {
+  return Object.values(title as MultilingualTitle).find((val) => val) || "";
+};

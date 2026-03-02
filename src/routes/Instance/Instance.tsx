@@ -20,6 +20,7 @@ import { Loader2Icon, MoveRightIcon, RotateCcw } from "lucide-react";
 import { Skeleton } from "@/components/ui/atoms/skeleton";
 import { ACCESS_TOKEN } from "@/lib/constants";
 import { SvgLoader } from "@/components/ui/atoms/svgLoader";
+import { getFirstAvailableTitle } from "@/lib/utils";
 
 export const FetchTextDetailInfo = async (textId: string) => {
   const { data } = await axiosInstance.get(`/api/v1/cataloger/texts/${textId}`);
@@ -103,10 +104,11 @@ const Instance = () => {
       <div className="flex flex-col w-full h-full border-t border-edge">
         <div className="flex flex-col items-start gap-4 p-4">
           <span className="text-2xl font-monlam">
-            {textdata?.title.en ||
-              textdata?.title.bo ||
-              textdata?.title.lzh ||
-              textdata?.title.zh || <Skeleton className=" w-md h-8" />}{" "}
+            {textdata?.title ? (
+              getFirstAvailableTitle(textdata.title)
+            ) : (
+              <Skeleton className=" w-md h-8" />
+            )}
           </span>
           <div className="flex items-center gap-2">
             <p className="text-sm text-muted-foreground">Pecha Server:</p>
