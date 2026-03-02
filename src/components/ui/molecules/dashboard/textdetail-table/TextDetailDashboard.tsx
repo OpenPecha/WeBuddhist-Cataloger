@@ -49,7 +49,8 @@ export function TextDetailDashboard({ data, isLoading }: any) {
               item.metadata.title.bo ||
               item.metadata.title.en ||
               item.metadata.title.tib ||
-              item.metadata.title.zh}
+              item.metadata.title.zh ||
+              item.metadata.title.lzh}
           </div>
         </TableCell>
 
